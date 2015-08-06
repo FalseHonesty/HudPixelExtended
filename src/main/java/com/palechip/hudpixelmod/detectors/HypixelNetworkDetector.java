@@ -24,6 +24,7 @@ package com.palechip.hudpixelmod.detectors;
 
 import com.palechip.hudpixelmod.HudPixelMod;
 
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class HypixelNetworkDetector {
@@ -31,6 +32,10 @@ public class HypixelNetworkDetector {
     public static boolean isHypixelNetwork;
 
     private static final String HYPIXEL_DOMAIN = "hypixel.net";
+    // Only part of the MOTD
+    private static final String HYPIXEL_MOTD = "Hypixel Network";
+    // Accepted name. Defined by user.
+    private static final String HYPIXEL_NAME = "hypixel";
 
     /**
      * Checks if the Player is on Hypixel Network.
@@ -46,14 +51,18 @@ public class HypixelNetworkDetector {
             }
             return;
         }
-        String ip = FMLClientHandler.instance().getClient().getCurrentServerData().serverIP;
+        ServerData data = FMLClientHandler.instance().getClient().getCurrentServerData();
+        String ip = data.serverIP;
+        String motd = data.serverMOTD;
+        String name = data.serverName;
         // if the server ip ends with hypixel.net, it belongs to the Hypixel Network (mc.hypixel.net, test.hypixel.net, mvp.hypixel.net, creative.hypixel.net)
-        if(!isHypixelNetwork && ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase())) {
+        // other valid identifiers are the motd and the name the user gives the server.
+        if(!isHypixelNetwork && (ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase()) || motd.toLowerCase().contains(HYPIXEL_MOTD.toLowerCase()) || name.equalsIgnoreCase(HYPIXEL_NAME))) {
             isHypixelNetwork = true;
             HudPixelMod.instance().logInfo("Joined Hypixel Network");
         }
         // it can happen that the server data doesn't get null
-        else if(isHypixelNetwork && !ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase())) {
+        else if(isHypixelNetwork && !(ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase()) || motd.toLowerCase().contains(HYPIXEL_MOTD.toLowerCase()) || name.equalsIgnoreCase(HYPIXEL_NAME))) {
             isHypixelNetwork = false;
             HudPixelMod.instance().logInfo("Disconnected from Hypixel Network");
         }
