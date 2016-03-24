@@ -22,17 +22,15 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.components;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class KillstreakTracker implements IComponent {
+    private final String CURRENT_KILLSTREAK_DISPLAY_TEXT = TextFormatting.DARK_PURPLE + "Killstreak: ";
+    private final String GREATEST_KILLSTREAK_DISPLAY_TEXT = TextFormatting.LIGHT_PURPLE + "Best Killstreak: ";
     private int currentKillstreak;
     private int greatestKillstreak;
-
     private boolean showGreatest;
-
-    private final String CURRENT_KILLSTREAK_DISPLAY_TEXT = EnumChatFormatting.DARK_PURPLE + "Killstreak: ";
-    private final String GREATEST_KILLSTREAK_DISPLAY_TEXT = EnumChatFormatting.LIGHT_PURPLE + "Best Killstreak: ";
 
     @Override
     public void setupNewGame() {

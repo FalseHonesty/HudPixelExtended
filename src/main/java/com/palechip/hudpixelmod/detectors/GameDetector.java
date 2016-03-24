@@ -22,37 +22,23 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.detectors;
 
-import java.util.ArrayList;
-
-import net.minecraft.client.gui.GuiDownloadTerrain;
-import net.minecraft.client.gui.GuiGameOver;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.boss.BossStatus;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StringUtils;
-
 import com.palechip.hudpixelmod.HudPixelMod;
+import com.palechip.hudpixelmod.Test;
 import com.palechip.hudpixelmod.games.Game;
 import com.palechip.hudpixelmod.games.GameConfiguration;
 import com.palechip.hudpixelmod.games.GameManager;
 import com.palechip.hudpixelmod.util.GameType;
 import com.palechip.hudpixelmod.util.ScoreboardReader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiDownloadTerrain;
+import net.minecraft.client.gui.GuiGameOver;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StringUtils;
 
-import net.minecraftforge.fml.client.FMLClientHandler;
+import java.util.ArrayList;
 
 public class GameDetector {
-    // Game.NO_GAME if no game is detected, never null
-    protected Game currentGame = Game.NO_GAME;
-
-    private boolean isGameDetectionStarted = false;
-    private boolean isLobbyDetectionStarted = false;
-
-    private boolean isBypassing = false;
-
-    private String bossbarContent = "";
-
-    // this means a lobby where you choose the game and not a pre-game lobby
-    private boolean isInLobby = false;
     private static final String COMPASS_NAME = "\u00A7aGame Menu \u00A77(Right Click)";
     private static final String PROFILE_NAME = "\u00A7aMy Profile \u00A77(Right Click)";
     private static final String WITHER_STAR_NAME = "\u00A7aLobby Selector \u00A77(Right Click)";
@@ -62,6 +48,14 @@ public class GameDetector {
     private static final String PARTY_DRAG_MESSAGE = "Found a server running";
     private static final String PARTY_WARP_MESSAGE = " summoned you to their server.";
     private static final String COPS_AND_CRIMS_GAME_IN_PROGRESS_JOIN_MESSAGE = "Found an in-progress Cops and Crims game!";
+    // Game.NO_GAME if no game is detected, never null
+    protected Game currentGame = Game.NO_GAME;
+    private boolean isGameDetectionStarted = false;
+    private boolean isLobbyDetectionStarted = false;
+    private boolean isBypassing = false;
+    private String bossbarContent = "";
+    // this means a lobby where you choose the game and not a pre-game lobby
+    private boolean isInLobby = false;
 
     public void onGuiShow(GuiScreen gui) {
         if(HypixelNetworkDetector.isHypixelNetwork) {
@@ -152,8 +146,8 @@ public class GameDetector {
 
     public void onClientTick() {
         // check if the bossbar updated
-        if(BossStatus.bossName != null && !this.bossbarContent.equals(BossStatus.bossName)) {
-            this.bossbarContent = BossStatus.bossName;
+        if (Test.getNameOfBoss() != null && !this.bossbarContent.equals(Test.getNameOfBoss())) {
+            this.bossbarContent = Test.getNameOfBoss();
             this.onBossbarChange();
         }
 
@@ -197,10 +191,10 @@ public class GameDetector {
 
         // lobby detection is also done when game detection is active
         // because players can change from lobby to lobby
-        if((this.isLobbyDetectionStarted || this.isGameDetectionStarted) && FMLClientHandler.instance().getClientPlayerEntity() != null && FMLClientHandler.instance().getClientPlayerEntity().inventory != null) {
+        if ((this.isLobbyDetectionStarted || this.isGameDetectionStarted) && Minecraft.getMinecraft().thePlayer != null && Minecraft.getMinecraft().thePlayer.inventory != null) {
             // detect lobbies
             // the mod assumes that the player is in a lobby when he has the lobby compass, the lobby clock or the lobby selection star
-            ItemStack[] inventory = FMLClientHandler.instance().getClientPlayerEntity().inventory.mainInventory;
+            ItemStack[] inventory = Minecraft.getMinecraft().thePlayer.inventory.mainInventory;
 
             // limbo and MVP+ land count as lobby as well
             if((inventory[0] != null && inventory[0].getDisplayName().equals(COMPASS_NAME)) || (inventory[1] != null &&inventory[1].getDisplayName().equals(PROFILE_NAME)) ||  (inventory[8] != null && inventory[8].getDisplayName().equals(WITHER_STAR_NAME))) {
@@ -235,12 +229,12 @@ public class GameDetector {
     private void onBossbarChange() {
         if(this.isGameDetectionStarted) {
             // if there is a boss bar
-            if(BossStatus.bossName != null) {
+            if (Test.getNameOfBoss() != null) {
                 // check all games for a matching name
                 for(GameConfiguration game : GameManager.getGameManager().getConfigurations()) {
                     // please note the use of contains() and not equals()
                     // in a pre-game lobby there will always be the IP in the bar. (because youtube)
-                    if(game.getBossbarName() != null && !game.getBossbarName().isEmpty() && BossStatus.bossName.toLowerCase().contains(game.getBossbarName().toLowerCase()) && BossStatus.bossName.toLowerCase().contains(this.HYPIXEL_IP)) {
+                    if (game.getBossbarName() != null && !game.getBossbarName().isEmpty() && Test.getNameOfBoss().toLowerCase().contains(game.getBossbarName().toLowerCase()) && Test.getNameOfBoss().toLowerCase().contains(HYPIXEL_IP)) {
                         // we found the game
                         this.currentGame = GameManager.getGameManager().createGame(game.getModID());
                         this.isGameDetectionStarted = false;

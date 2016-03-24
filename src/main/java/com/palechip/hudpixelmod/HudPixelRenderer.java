@@ -31,7 +31,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 import java.util.ArrayList;
@@ -84,11 +84,11 @@ public class HudPixelRenderer {
         
         this.defaultRenderingStrings = new ArrayList<String>();
         if(HudPixelConfig.displayVersion) {
-            this.defaultRenderingStrings.add("HudPixel RL " + EnumChatFormatting.GOLD + HudPixelProperties.VERSION);
+            this.defaultRenderingStrings.add("HudPixel RL " + TextFormatting.GOLD + HudPixelProperties.VERSION);
         }
         if(updater.hasUpdate()) {
-            this.defaultRenderingStrings.add(EnumChatFormatting.RED + "UPDATE: " + updater.getUpdateInformation().getLatestVersion());
-            this.defaultRenderingStrings.add(EnumChatFormatting.YELLOW + updater.getUpdateInformation().getupdateLinkDisplay());
+            this.defaultRenderingStrings.add(TextFormatting.RED + "UPDATE: " + updater.getUpdateInformation().getLatestVersion());
+            this.defaultRenderingStrings.add(TextFormatting.YELLOW + updater.getUpdateInformation().getupdateLinkDisplay());
         }
         
     }

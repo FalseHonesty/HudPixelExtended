@@ -22,17 +22,6 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.gui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiChat;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
-import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
-
 import com.palechip.hudpixelmod.HudPixelMod;
 import com.palechip.hudpixelmod.api.interaction.Queue;
 import com.palechip.hudpixelmod.api.interaction.callbacks.BoosterResponseCallback;
@@ -40,15 +29,23 @@ import com.palechip.hudpixelmod.api.interaction.representations.Booster;
 import com.palechip.hudpixelmod.chat.BoosterQueueCommandParser;
 import com.palechip.hudpixelmod.config.HudPixelConfig;
 import com.palechip.hudpixelmod.games.GameManager;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class BoosterDisplay implements BoosterResponseCallback{
+    public static final int QUICK_LOAD_BUTTON_HEIGHT = 20;
     private static final int REQUEST_COOLDOWN = 30000; // = 30s
     private static final int REFRESH_TIMEOUT = 120000; // 90s this is how often it refreshes when the chat gui stays open (e.g. when the person is afk)
-    private static final String TITLE = EnumChatFormatting.RED + "Boosters";
-    public static final int QUICK_LOAD_BUTTON_HEIGHT = 20;
-
+    private static final String TITLE = TextFormatting.RED + "Boosters";
     private BoosterDisplay instance;
     private long lastRequest;
     private ArrayList<String> renderingStrings;
@@ -114,7 +111,7 @@ public class BoosterDisplay implements BoosterResponseCallback{
             }
 
             // Add all active boosters. Tipped ones are white. Untipped ones are green.
-            newRenderingStrings.add(EnumChatFormatting.GOLD + GameManager.getGameManager().getGameConfiguration(booster.getGameID()).getShortName() + ": " + (this.tippedBoosters.contains(booster) ? EnumChatFormatting.WHITE : EnumChatFormatting.GREEN) + booster.getOwner());
+            newRenderingStrings.add(TextFormatting.GOLD + GameManager.getGameManager().getGameConfiguration(booster.getGameID()).getShortName() + ": " + (this.tippedBoosters.contains(booster) ? TextFormatting.WHITE : TextFormatting.GREEN) + booster.getOwner());
         }
 
         // if the unprocessed tips were matched, clear the list

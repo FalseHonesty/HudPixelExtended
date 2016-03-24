@@ -25,8 +25,7 @@ package com.palechip.hudpixelmod.components;
 import com.palechip.hudpixelmod.stats.BlitzStatsDisplayer;
 import com.palechip.hudpixelmod.util.ChatMessageComposer;
 import com.palechip.hudpixelmod.util.GameType;
-
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
 public class AfterStatsComponent implements IComponent {
@@ -64,7 +63,7 @@ public class AfterStatsComponent implements IComponent {
                     }
                     new BlitzStatsDisplayer(killer).display();
                 } else {
-                    new ChatMessageComposer("There is nobody to get the stats. :(", EnumChatFormatting.GREEN).send();
+                    new ChatMessageComposer("There is nobody to get the stats. :(", TextFormatting.GREEN).send();
                 }
             }
             break;

@@ -22,31 +22,17 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.api.interaction;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import net.minecraft.event.ClickEvent.Action;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
-
 import com.palechip.hudpixelmod.HudPixelMod;
 import com.palechip.hudpixelmod.api.interaction.callbacks.ApiKeyLoadedCallback;
 import com.palechip.hudpixelmod.util.ChatMessageComposer;
-
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent.Action;
 import net.minecraftforge.fml.client.FMLClientHandler;
+
+import java.io.*;
 
 public class ApiKeyHandler {
     private static ApiKeyHandler instance;
-
-    // this gets set to true when the loading fails but is finished
-    public boolean loadingFailed = false;
-
-    private String apiKey;
-    private ApiKeyLoadedCallback callback;
     private static String API_KEY_STORAGE_PATH;
     private static String API_KEY_STORAGE_FILE;
     private static String API_KEY_REQUEST_MESSAGE_1 = "No API key found. This key is necessary for some cool features.";
@@ -69,6 +55,11 @@ public class ApiKeyHandler {
         }
     }
 
+    // this gets set to true when the loading fails but is finished
+    public boolean loadingFailed = false;
+    private String apiKey;
+    private ApiKeyLoadedCallback callback;
+
     /**
      * Loads the api key.
      * @param callback The class which gets notified upon completion
@@ -85,6 +76,10 @@ public class ApiKeyHandler {
         }.start();
     }
 
+    public static ApiKeyHandler getInstance() {
+        return instance;
+    }
+
     public void onChatMessage(String textMessage) {
         if(textMessage.startsWith("Your new API key is ")) {
             // extract the key
@@ -96,10 +91,10 @@ public class ApiKeyHandler {
                 @Override
                 public void run() {
                     ApiKeyHandler.getInstance().saveAPIKey();
-                };
+                }
             }.start();
             // tell the user
-            new ChatMessageComposer("API key successfully detected and saved. The API is ready for usage.", EnumChatFormatting.GREEN).send();
+            new ChatMessageComposer("API key successfully detected and saved. The API is ready for usage.", TextFormatting.GREEN).send();
         }
     }
 
@@ -108,7 +103,7 @@ public class ApiKeyHandler {
      */
     public void requestApiKey() {
         new ChatMessageComposer(API_KEY_REQUEST_MESSAGE_1).send();
-        new ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART1).appendMessage(new ChatMessageComposer("/api", EnumChatFormatting.RED).makeClickable(Action.RUN_COMMAND, "/api", new ChatMessageComposer("Runs ", EnumChatFormatting.GRAY).appendMessage(new ChatMessageComposer("/api", EnumChatFormatting.RED)))).appendMessage(new ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART2)).send();
+        new ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART1).appendMessage(new ChatMessageComposer("/api", TextFormatting.RED).makeClickable(Action.RUN_COMMAND, "/api", new ChatMessageComposer("Runs ", TextFormatting.GRAY).appendMessage(new ChatMessageComposer("/api", TextFormatting.RED)))).appendMessage(new ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART2)).send();
         new ChatMessageComposer(API_KEY_REQUEST_MESSAGE_3).send();
         new ChatMessageComposer(API_KEY_REQUEST_MESSAGE_4).send();
     }
@@ -188,10 +183,5 @@ public class ApiKeyHandler {
      */
     private boolean isCorrectKeyFormat(String key) {
         return key.matches(API_KEY_PATTERN);
-    }
-
-
-    public static ApiKeyHandler getInstance() {
-        return instance;
     }
 }

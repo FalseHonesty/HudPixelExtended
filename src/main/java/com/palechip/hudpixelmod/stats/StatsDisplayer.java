@@ -22,11 +22,6 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.stats;
 
-import java.util.Map;
-
-import net.minecraft.util.EnumChatFormatting;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.palechip.hudpixelmod.HudPixelMod;
 import com.palechip.hudpixelmod.api.interaction.Queue;
@@ -34,6 +29,7 @@ import com.palechip.hudpixelmod.api.interaction.callbacks.PlayerResponseCallback
 import com.palechip.hudpixelmod.api.interaction.representations.Player;
 import com.palechip.hudpixelmod.config.HudPixelConfig;
 import com.palechip.hudpixelmod.util.ChatMessageComposer;
+import net.minecraft.util.text.TextFormatting;
 
 public abstract class StatsDisplayer implements PlayerResponseCallback{
 
@@ -85,7 +81,7 @@ public abstract class StatsDisplayer implements PlayerResponseCallback{
     }
     
     private void failed() {
-        new ChatMessageComposer("Failed to load stats for: " + this.playerName + "!", EnumChatFormatting.RED).send();
+        new ChatMessageComposer("Failed to load stats for: " + this.playerName + "!", TextFormatting.RED).send();
     }
     
     /**

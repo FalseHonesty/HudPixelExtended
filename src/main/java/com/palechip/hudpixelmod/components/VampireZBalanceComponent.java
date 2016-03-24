@@ -23,17 +23,13 @@
 package com.palechip.hudpixelmod.components;
 
 import com.palechip.hudpixelmod.HudPixelMod;
-
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 public class VampireZBalanceComponent extends CoinCounterComponent {
-    public static enum Type {Negative, Total};
-    public static final String NEGATIVE_COINS_DISPLAY_TEXT = EnumChatFormatting.RED + "Coins Spent: ";
+    public static final String NEGATIVE_COINS_DISPLAY_TEXT = TextFormatting.RED + "Coins Spent: ";
     public static final String TOTAL_COINS_DISPLAY_TEXT = "Balance: ";
-    
     private Type type;
     private boolean shouldDisplay = false;
-    
     public VampireZBalanceComponent(Type type) {
         this.type = type;
     }
@@ -53,9 +49,9 @@ public class VampireZBalanceComponent extends CoinCounterComponent {
                 return NEGATIVE_COINS_DISPLAY_TEXT + (-this.coins);
             case Total:
                 if(this.coins < 0) {
-                    return EnumChatFormatting.RED + TOTAL_COINS_DISPLAY_TEXT + this.coins;
+                    return TextFormatting.RED + TOTAL_COINS_DISPLAY_TEXT + this.coins;
                 } else {
-                    return EnumChatFormatting.GREEN + TOTAL_COINS_DISPLAY_TEXT + this.coins;
+                    return TextFormatting.GREEN + TOTAL_COINS_DISPLAY_TEXT + this.coins;
                 }
             }
         }
@@ -66,7 +62,7 @@ public class VampireZBalanceComponent extends CoinCounterComponent {
     public void onChatMessage(String textMessage, String formattedMessage) {
         // Was something purchased ingame?
         if(textMessage.startsWith("[VampireZ]: Purchased ")  && (textMessage.toLowerCase().contains("blood") || textMessage.toLowerCase().contains("gold"))) {
-            
+
             // get the amount
             String amountStr = textMessage.replace("[VampireZ]: Purchased ", "");
             amountStr = amountStr.substring(0, amountStr.indexOf(" "));
@@ -76,9 +72,9 @@ public class VampireZBalanceComponent extends CoinCounterComponent {
             } catch (Exception e) {
                 HudPixelMod.instance().logInfo("Failed to parse amount out of VampireZ purchase message. Ignoring.");
             }
-            
+
             // get the price
-            // I know it's ugly that it's hard-coded but 
+            // I know it's ugly that it's hard-coded but
             int price = 0;
             // blood
             if(textMessage.toLowerCase().contains("blood")) {
@@ -130,4 +126,6 @@ public class VampireZBalanceComponent extends CoinCounterComponent {
     public boolean getConfigDefaultValue() {
         return true;
     }
+
+    public enum Type {Negative, Total}
 }

@@ -22,10 +22,10 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.components;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 public class TimerComponent implements IComponent{
-    public static final String TIME_DISPLAY_MESSAGE = EnumChatFormatting.YELLOW + "Time: ";
+    public static final String TIME_DISPLAY_MESSAGE = TextFormatting.YELLOW + "Time: ";
     private long startTime;
     private String runningTime;
 

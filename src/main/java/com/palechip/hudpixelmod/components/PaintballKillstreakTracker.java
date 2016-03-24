@@ -22,14 +22,14 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.components;
 
-import java.util.HashMap;
-
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.FMLClientHandler;
 
+import java.util.HashMap;
+
 public class PaintballKillstreakTracker implements IComponent {
-    private static final String COOLDOWN_SIGN = EnumChatFormatting.RED + "\u2717"; // fancy x
-    private static final String ACTIVE_SIGN = EnumChatFormatting.GREEN + "\u2713"; // check mark
+    private static final String COOLDOWN_SIGN = TextFormatting.RED + "\u2717"; // fancy x
+    private static final String ACTIVE_SIGN = TextFormatting.GREEN + "\u2713"; // check mark
     
     private static HashMap<String, PaintballKillstreakTracker> cooldownDependantKillstreaks = new HashMap<String, PaintballKillstreakTracker>();
     private static HashMap<String, Long> durationStorage = new HashMap<String, Long>();
@@ -94,7 +94,7 @@ public class PaintballKillstreakTracker implements IComponent {
                 this.renderedString = this.getColorForTime(remainingTime / 1000) + remainingTime / 1000 + "s";
             } else {
                 long timePast = System.currentTimeMillis() - this.startTime;
-                this.renderedString = EnumChatFormatting.YELLOW + "" + timePast / 1000 + "s (m)";
+                this.renderedString = TextFormatting.YELLOW + "" + timePast / 1000 + "s (m)";
             }
         }
     }
@@ -132,7 +132,7 @@ public class PaintballKillstreakTracker implements IComponent {
     @Override
     public String getRenderingString() {
         if(this.isActive) {
-            return ACTIVE_SIGN +  EnumChatFormatting.DARK_PURPLE + this.listenedKillstreak + ": " + renderedString;
+            return ACTIVE_SIGN + TextFormatting.DARK_PURPLE + this.listenedKillstreak + ": " + renderedString;
         } else if(this.isCoolingDown || (!this.cooldownDependantKillstreak.isEmpty() && cooldownDependantKillstreaks.containsKey(this.cooldownDependantKillstreak) ? cooldownDependantKillstreaks.get(this.cooldownDependantKillstreak).isCoolingDown : false)) {
             // the listened killstreak will be red because the color from COOLDOWN_SIGN isn't reset
             return COOLDOWN_SIGN + " " + this.listenedKillstreak;
@@ -144,13 +144,13 @@ public class PaintballKillstreakTracker implements IComponent {
     private String getColorForTime(long time) {
         if(time >= 10) {
             // green
-            return String.valueOf(EnumChatFormatting.GREEN);
+            return String.valueOf(TextFormatting.GREEN);
         } else if( time >= 5){
             // orange
-            return String.valueOf(EnumChatFormatting.GOLD);
+            return String.valueOf(TextFormatting.GOLD);
         } else {
             // red and bold
-           return String.valueOf(EnumChatFormatting.RED + "" + EnumChatFormatting.BOLD);
+            return String.valueOf(TextFormatting.RED + "" + TextFormatting.BOLD);
         }
     }
 

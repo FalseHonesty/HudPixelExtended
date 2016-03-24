@@ -1,24 +1,19 @@
 package com.palechip.hudpixelmod.components;
 
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-
 import com.palechip.hudpixelmod.HudPixelMod;
-
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.FMLClientHandler;
+
+import java.util.ArrayList;
 
 public class TkrTimer implements IComponent {
     public static final String LAP_COMPLETION_MESSAGE_REGEX = "(Lap \\d Completed!).*";
-
+    private static long startDelay = 0l;
     private int lap;
     private boolean running = false;
     private long startingTime = 0;
     private String runningTime = "00:00";
-
     private String officialTime = "";
-
-    private static long startDelay = 0l;
 
     /**
      * Create a new accurate Timer for Turbo Kart Racers
@@ -37,7 +32,7 @@ public class TkrTimer implements IComponent {
         // start the general timer and the first lap timer
         if(this.lap == 0 || this.lap == 1) {
             // add the start delay. Setting the start into the future if we know the start delay
-            this.startingTime = System.currentTimeMillis() + this.startDelay;
+            this.startingTime = System.currentTimeMillis() + startDelay;
             this.running = true;
         }
     }
@@ -102,7 +97,7 @@ public class TkrTimer implements IComponent {
                     this.startingTime = currentTime - officialTimeMilliSeconds;
 
                     // the start delay is the difference between our (greater) measured time and the official time
-                    this.startDelay = this.startDelay + (measuredTime - officialTimeMilliSeconds);
+                    startDelay = startDelay + (measuredTime - officialTimeMilliSeconds);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -124,10 +119,10 @@ public class TkrTimer implements IComponent {
         } else {
             if(this.running) {
                 // show the result if the timer is running
-                return EnumChatFormatting.YELLOW + "Lap " + this.lap + ": " + this.runningTime;
+                return TextFormatting.YELLOW + "Lap " + this.lap + ": " + this.runningTime;
             } else {
                 // return the official time if it isn't running. This may also be empty if it hasn't started yet
-                return this.officialTime.isEmpty() ? "" : EnumChatFormatting.YELLOW + "Lap " + this.lap + ": " + this.officialTime;
+                return this.officialTime.isEmpty() ? "" : TextFormatting.YELLOW + "Lap " + this.lap + ": " + this.officialTime;
             }
         }
     }

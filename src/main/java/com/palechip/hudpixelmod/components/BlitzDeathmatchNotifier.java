@@ -22,7 +22,7 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.components;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 public class BlitzDeathmatchNotifier implements IComponent {
     private static final String DISPLAY_STRING = "DEATHMATCH STARTING SOON";
@@ -66,16 +66,16 @@ public class BlitzDeathmatchNotifier implements IComponent {
             // update the color
             switch((this.ticksLeft / ANIMATION_TIME) % 4) {
             case 0:
-                this.renderingString = EnumChatFormatting.LIGHT_PURPLE + DISPLAY_STRING;
+                this.renderingString = TextFormatting.LIGHT_PURPLE + DISPLAY_STRING;
                 break;
             case 1:
-                this.renderingString = EnumChatFormatting.YELLOW + DISPLAY_STRING;
+                this.renderingString = TextFormatting.YELLOW + DISPLAY_STRING;
                 break;
             case 2:
-                this.renderingString = EnumChatFormatting.GREEN + DISPLAY_STRING;
+                this.renderingString = TextFormatting.GREEN + DISPLAY_STRING;
                 break;
             case 3:
-                this.renderingString = EnumChatFormatting.RED + DISPLAY_STRING;
+                this.renderingString = TextFormatting.RED + DISPLAY_STRING;
                 break;
             }
 

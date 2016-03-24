@@ -22,15 +22,14 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.uptodate;
 
-import java.util.ArrayList;
-
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fml.client.FMLClientHandler;
-
 import com.palechip.hudpixelmod.HudPixelMod;
 import com.palechip.hudpixelmod.HudPixelProperties;
 import com.palechip.hudpixelmod.detectors.HypixelNetworkDetector;
 import com.palechip.hudpixelmod.util.ChatMessageComposer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
+
+import java.util.ArrayList;
 
 /**
  * Checks if there is an update and sends a notification if there is one.
@@ -54,13 +53,13 @@ public class UpdateNotifier {
         // check if an update message needs to be sent
         if(this.hasUpdate && !this.wasNotificationSent) {
             // check if MC is ready to sent a chat message
-            if(HypixelNetworkDetector.isHypixelNetwork && FMLClientHandler.instance().getClientPlayerEntity() != null) {
+            if (HypixelNetworkDetector.isHypixelNetwork && Minecraft.getMinecraft().thePlayer != null) {
                 // mark the message as sent
                 this.wasNotificationSent = true;
                 // send the message
-                new ChatMessageComposer("Update available: " , EnumChatFormatting.DARK_PURPLE).appendMessage(new ChatMessageComposer(this.updateInformation.getLatestVersion(), EnumChatFormatting.GREEN)).send();
-                new ChatMessageComposer(this.updateInformation.getUpdateReason() , EnumChatFormatting.GOLD).addFormatting(EnumChatFormatting.ITALIC).send();
-                new ChatMessageComposer("Download here: ", EnumChatFormatting.DARK_PURPLE).appendMessage(new ChatMessageComposer(this.updateInformation.getupdateLinkDisplay(), EnumChatFormatting.YELLOW).makeLink(this.updateInformation.getUpdateLink())).send();
+                new ChatMessageComposer("Update available: ", TextFormatting.DARK_PURPLE).appendMessage(new ChatMessageComposer(this.updateInformation.getLatestVersion(), TextFormatting.GREEN)).send();
+                new ChatMessageComposer(this.updateInformation.getUpdateReason(), TextFormatting.GOLD).addFormatting(TextFormatting.ITALIC).send();
+                new ChatMessageComposer("Download here: ", TextFormatting.DARK_PURPLE).appendMessage(new ChatMessageComposer(this.updateInformation.getupdateLinkDisplay(), TextFormatting.YELLOW).makeLink(this.updateInformation.getUpdateLink())).send();
                 // also update rendering vars to make sure it notices the update
                 HudPixelMod.instance().renderer.loadRenderingProperties(this);
                 

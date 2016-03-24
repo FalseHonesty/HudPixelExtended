@@ -22,23 +22,18 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.palechip.hudpixelmod.util.GameType;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
+
+import java.util.List;
 
 /**
  * A creative solution to the Warlords CTF crash. Removes the corrupt item using a trick.
@@ -85,7 +80,7 @@ public class WarlordsCTFCrashPrevention {
                             World world = mc.theWorld;
 
                             // remove it from the chunk if it was there. (Looks a little bit different than in World.updateEntities() because the original method wasn't visible)
-                            if (e.addedToChunk && world.getChunkProvider().chunkExists(x, z))
+                            if (e.addedToChunk && world.getChunkProvider().getLoadedChunk(x, z) != null)
                             {
                                 world.getChunkFromChunkCoords(x, z).removeEntity(e);
                             }

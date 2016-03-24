@@ -22,18 +22,15 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod.components;
 
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraft.util.EnumChatFormatting;
 
 public class WallsKillCounter implements IComponent {
-    
-    private static final String KILL_DISPLAY = EnumChatFormatting.AQUA + "Kills: " + EnumChatFormatting.RED;
-    private static final String ASSISTS_DISPLAY = EnumChatFormatting.AQUA +  "" + EnumChatFormatting.ITALIC +"Assists: " + EnumChatFormatting.DARK_GRAY;
-    public static enum KillType {Normal, Assists};
-    
+
+    private static final String KILL_DISPLAY = TextFormatting.AQUA + "Kills: " + TextFormatting.RED;
+    private static final String ASSISTS_DISPLAY = TextFormatting.AQUA + "" + TextFormatting.ITALIC + "Assists: " + TextFormatting.DARK_GRAY;
     private KillType trackedType;
     private int kills;
-
     public WallsKillCounter(KillType trackedType) {
         this.trackedType = trackedType;
     }
@@ -102,5 +99,7 @@ public class WallsKillCounter implements IComponent {
     public boolean getConfigDefaultValue() {
         return true;
     }
+
+    public enum KillType {Normal, Assists}
 
 }

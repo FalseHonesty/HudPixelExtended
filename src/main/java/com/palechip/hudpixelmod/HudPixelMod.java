@@ -22,24 +22,6 @@
  *******************************************************************************/
 package com.palechip.hudpixelmod;
 
-import java.util.ArrayList;
-
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
-import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
-import net.minecraftforge.common.MinecraftForge;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Keyboard;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.palechip.hudpixelmod.api.interaction.Queue;
 import com.palechip.hudpixelmod.chat.WarlordsDamageChatFilter;
 import com.palechip.hudpixelmod.config.HudPixelConfig;
@@ -48,17 +30,15 @@ import com.palechip.hudpixelmod.detectors.GameDetector;
 import com.palechip.hudpixelmod.detectors.GameStartStopDetector;
 import com.palechip.hudpixelmod.detectors.HypixelNetworkDetector;
 import com.palechip.hudpixelmod.games.Game;
-import com.palechip.hudpixelmod.games.GameManager;
-import com.palechip.hudpixelmod.stats.BlitzStatsDisplayer;
-import com.palechip.hudpixelmod.uptodate.HudPixelDeactivatedException;
-import com.palechip.hudpixelmod.uptodate.UpToDateThread;
-import com.palechip.hudpixelmod.uptodate.UpdateChannel;
-import com.palechip.hudpixelmod.uptodate.UpdateInformation;
-import com.palechip.hudpixelmod.uptodate.UpdateNotifier;
-import com.palechip.hudpixelmod.uptodate.VersionInformation;
+import com.palechip.hudpixelmod.uptodate.*;
 import com.palechip.hudpixelmod.util.ChatMessageComposer;
 import com.palechip.hudpixelmod.util.ScoreboardReader;
-
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -71,6 +51,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.input.Keyboard;
 
 @Mod(modid = HudPixelMod.MODID, version = HudPixelProperties.SHORT_VERSION, name = HudPixelMod.NAME, guiFactory = "com.palechip.hudpixelmod.config.HudPixelGuiFactory")
 public class HudPixelMod
@@ -78,29 +61,28 @@ public class HudPixelMod
     public static final String MODID = "hudpixel";
     public static final String NAME = "HudPixel Reloaded";
     public static final boolean IS_DEBUGGING = true;
-
+    // key related vars
+    public static final String KEY_CATEGORY = "HudPixel Mod";
     private static HudPixelMod instance;
-
     public Logger LOGGER;
     public HudPixelConfig CONFIG;
     public UpdateNotifier  updateNotifier;
     public HudPixelRenderer renderer;
+    public GameDetector gameDetector;
     private Queue apiQueue;
-    
     private boolean deactivate = false;
     private VersionInformation deactivationInformation;
-
     private HypixelNetworkDetector hypixelDetector;
-    public GameDetector gameDetector;
     private GameStartStopDetector gameStartStopDetector;
-
-    // key related vars
-    public static final String KEY_CATEGORY = "HudPixel Mod";
     private KeyBinding hideHUDKey;
     private KeyBinding openConfigGui;
     private KeyBinding debugKey; // A key used to bind some debugging functionality
 
     private WarlordsDamageChatFilter warlordsChatFilter;
+
+    public static HudPixelMod instance() {
+        return instance;
+    }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -108,14 +90,14 @@ public class HudPixelMod
             instance = this;
             // create an empty notifier
             this.updateNotifier = new UpdateNotifier(new UpdateInformation());
-            
+
             // start the HudPixel Up To Date Loader
             new UpToDateThread(event.getModConfigurationDirectory());
             // Initialize the logger
             this.LOGGER = LogManager.getLogger("HudPixel");
             // log the full version
             this.logInfo("Used HudPixel Version: " + HudPixelProperties.VERSION);
-            
+
             // load the configuration file (this doesn't read it, it will only be read after the UpToDateThread finished processing games.json
             this.CONFIG = new HudPixelConfig(event.getSuggestedConfigurationFile());
             this.apiQueue = new Queue();
@@ -144,11 +126,11 @@ public class HudPixelMod
         this.openConfigGui = new KeyBinding("Open Config", Keyboard.KEY_P, KEY_CATEGORY);
         ClientRegistry.registerKeyBinding(this.hideHUDKey);
         ClientRegistry.registerKeyBinding(this.openConfigGui);
-        if(this.IS_DEBUGGING) {
+        if (IS_DEBUGGING) {
             this.debugKey = new KeyBinding("DEBUG KEY", Keyboard.KEY_J, KEY_CATEGORY);
             ClientRegistry.registerKeyBinding(this.debugKey);
         }
-        
+
         new WarlordsCTFCrashPrevention();
     }
 
@@ -171,11 +153,11 @@ public class HudPixelMod
     public void onChatMessage(ClientChatReceivedEvent event) {
         try {
             //Don't do anything unless we are on Hypixel
-            if(this.hypixelDetector.isHypixelNetwork) {
+            if (HypixelNetworkDetector.isHypixelNetwork) {
 
                 // this one reads the normal chat messages
                 if(event.type == 0) {
-
+                    new ChatMessageComposer(Test.getNameOfBoss()).send();
                     // pass the event to the GameDetector
                     this.gameDetector.onChatMessage(event.message.getUnformattedText(), event.message.getFormattedText());
 
@@ -214,7 +196,7 @@ public class HudPixelMod
         this.deactivationInformation = versionInformation;
         this.deactivate = true;
     }
-    
+
     @SubscribeEvent
     public void onClientTick(ClientTickEvent event) {
         try {
@@ -222,9 +204,9 @@ public class HudPixelMod
             if(this.deactivate) {
                 throw new HudPixelDeactivatedException(this.deactivationInformation);
             }
-            
+
             // Don't do anything unless we are on Hypixel
-            if(this.hypixelDetector.isHypixelNetwork) {
+            if (HypixelNetworkDetector.isHypixelNetwork) {
                 // make sure the Scoreboard reader updates when necessary
                 ScoreboardReader.resetCache();
 
@@ -263,7 +245,7 @@ public class HudPixelMod
     public void onRenderTick(RenderTickEvent event) {
         try {
             // Don't do anything unless we are on Hypixel
-            if(this.hypixelDetector.isHypixelNetwork) {
+            if (HypixelNetworkDetector.isHypixelNetwork) {
                 // render the game
                 this.renderer.onRenderTick();
             }
@@ -277,7 +259,7 @@ public class HudPixelMod
     public void onKeyInput(KeyInputEvent event) {
         try {
             // Don't do anything unless we are on Hypixel
-            if(this.hypixelDetector.isHypixelNetwork) {
+            if (HypixelNetworkDetector.isHypixelNetwork) {
                 // check all listened keys
                 if(this.hideHUDKey.isPressed()) {
                     this.renderer.isHUDShown = !this.renderer.isHUDShown;
@@ -286,7 +268,7 @@ public class HudPixelMod
                     // open the config screen
                     FMLClientHandler.instance().getClient().displayGuiScreen(new HudPixelConfigGui(null));
                 }
-                if(this.IS_DEBUGGING) {
+                if (IS_DEBUGGING) {
                     if (this.debugKey.isPressed()) {
                         // Add debug code here
                     }
@@ -317,7 +299,7 @@ public class HudPixelMod
     public void onInitGui(InitGuiEvent event) {
         try {
             // Don't do anything unless we are on Hypixel
-            if(this.hypixelDetector.isHypixelNetwork) {
+            if (HypixelNetworkDetector.isHypixelNetwork) {
                 // pass the event to the booster display
                 // used to inject the tip-all button into GuiChat
                 this.renderer.boosterDisplay.onInitGui(event);
@@ -327,12 +309,12 @@ public class HudPixelMod
             e.printStackTrace();
         }
     }
-    
+
     @SubscribeEvent
     public void onGuiActionPerformed(ActionPerformedEvent event) {
         try {
             // Don't do anything unless we are on Hypixel
-            if(this.hypixelDetector.isHypixelNetwork) {
+            if (HypixelNetworkDetector.isHypixelNetwork) {
                 // notify all classes which have registered a button using on init gui
                 this.renderer.boosterDisplay.onGuiActionPerformed(event);
             }
@@ -340,10 +322,6 @@ public class HudPixelMod
             this.logWarn("An exception occured in onClientTick(). Stacktrace below.");
             e.printStackTrace();
         }
-    }
-
-    public static HudPixelMod instance() {
-        return instance;
     }
 
     public void logDebug(String s) {

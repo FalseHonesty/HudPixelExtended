@@ -23,17 +23,14 @@
 package com.palechip.hudpixelmod.components;
 
 import com.palechip.hudpixelmod.HudPixelMod;
-
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 public class BlitzStarTracker implements IComponent {
-    private enum Phase {NOT_RELEASED, HIDDEN, FOUND, ACTIVE ,USED, FORFEIT};
-    private static final String DISPLAY_MESSAGE = EnumChatFormatting.DARK_GREEN + "Blitz Star: ";
-
+    private static final String DISPLAY_MESSAGE = TextFormatting.DARK_GREEN + "Blitz Star: ";
+    private final long DURATION = 60000; // = 60s The blitz star ability only lasts 30s. It's intentionally inaccurate.
     private Phase currentPhase;
     private String owner;
     private String activatedBlitz;
-    private final long DURATION = 60000; // = 60s The blitz star ability only lasts 30s. It's intentionally inaccurate.
     private long startTime;
 
     @Override
@@ -103,16 +100,16 @@ public class BlitzStarTracker implements IComponent {
             return "";
         case HIDDEN:
             // it's hidden
-            return DISPLAY_MESSAGE + EnumChatFormatting.YELLOW + "Hidden";
+            return DISPLAY_MESSAGE + TextFormatting.YELLOW + "Hidden";
         case FOUND:
             // tell the player who had it.
-            return DISPLAY_MESSAGE + EnumChatFormatting.LIGHT_PURPLE + (this.owner.isEmpty() ? "Found" : this.owner);
+            return DISPLAY_MESSAGE + TextFormatting.LIGHT_PURPLE + (this.owner.isEmpty() ? "Found" : this.owner);
         case ACTIVE:
-            return DISPLAY_MESSAGE + EnumChatFormatting.RED + this.owner + " -> " + this.activatedBlitz;
+            return DISPLAY_MESSAGE + TextFormatting.RED + this.owner + " -> " + this.activatedBlitz;
         case FORFEIT:
         case USED:
             // it's gone
-            return DISPLAY_MESSAGE + EnumChatFormatting.GREEN + "Gone";
+            return DISPLAY_MESSAGE + TextFormatting.GREEN + "Gone";
         }
         return "";
     }
@@ -131,5 +128,7 @@ public class BlitzStarTracker implements IComponent {
     public boolean getConfigDefaultValue() {
         return true;
     }
+
+    private enum Phase {NOT_RELEASED, HIDDEN, FOUND, ACTIVE, USED, FORFEIT}
 
 }
