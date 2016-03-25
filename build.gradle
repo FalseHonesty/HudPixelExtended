@@ -21,7 +21,7 @@ plugins {
 */
 version = "1.0"
 group = "" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "HudPixel-1.9-UnofficialPort"
+archivesBaseName = "HudPixel-1.9-UnofficialPort-Exp"
 
 minecraft {
     version = "1.9-12.16.0.1804-1.9"
