@@ -36,6 +36,7 @@ import java.util.UUID;
 
 public class HudPixelExtended {
 
+
     private static HudPixelExtended hudPixelExtendedInstance = null;
     private static HudPixelExtendedEventHandler hudPixelExtendedEventHandler = new HudPixelExtendedEventHandler();
     public static OnlineFriendsComponent onlineFriends = new OnlineFriendsComponent();
