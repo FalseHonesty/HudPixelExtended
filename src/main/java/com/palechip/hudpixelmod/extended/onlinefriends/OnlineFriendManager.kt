@@ -62,36 +62,32 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 import java.util.function.Consumer
 
+@ConfigPropertyInt(category = CCategory.FRIENDS_DISPLAY, id = "xOffsetFriendsDisplay", comment = "X offset for friends display", def = 2)
+var xOffsetFriendsDisplay: Int = 2
+@ConfigPropertyInt(category = CCategory.FRIENDS_DISPLAY, id = "yOffsetFriendsDisplay", comment = "Y offset for friends display", def = 2)
+var yOffsetFriendsDisplay: Int = 2
+@ConfigPropertyInt(category = CCategory.FRIENDS_DISPLAY, id = "friendsShownAtOnce", comment = "Friends shown at once", def = 10)
+var friendsShownAtOnce = 10
+@ConfigPropertyBoolean(category = CCategory.FRIENDS_DISPLAY, id = "shownFriendsDisplayRight", comment = "Show friends display on the right", def = false)
+var shownFriendsDisplayRight: Boolean = false
+@ConfigPropertyBoolean(category = CCategory.FRIENDS_DISPLAY, id = "hideOfflineFriends", comment = "Hide offline friends?", def = true)
+var hideOfflineFriends = true
+@ConfigPropertyBoolean(category = CCategory.FRIENDS_DISPLAY, id = "isOnlineFriendsDisplay", comment = "Enable or disable the BoosterDisplay", def = true)
+var enabled = false
+
 @SideOnly(Side.CLIENT)
-object OnlineFriendManager : FancyListManager(5, OnlineFriendManager.xOffsetFriendsDisplay.toFloat(), OnlineFriendManager.yOffsetFriendsDisplay.toFloat(), OnlineFriendManager.shownFriendsDisplayRight), IUpdater {
+object OnlineFriendManager : FancyListManager(5, xOffsetFriendsDisplay.toFloat(), yOffsetFriendsDisplay.toFloat(), shownFriendsDisplayRight), IUpdater {
 
     private val JOINED_MESSAGE = " joined."
     private val LEFT_MESSAGE = " left."
     private val UPDATE_COOLDOWN_RENDERING = 10 * 1000 // = 10sec
     private val UPDATE_COOLDOWN_ONLINE = 2 * 60 * 1000 // = 2min
 
-    @ConfigPropertyInt(category = CCategory.FRIENDS_DISPLAY, id = "xOffsetFriendsDisplay", comment = "X offset for friends display", def = 2)
-    @JvmStatic
-    var xOffsetFriendsDisplay = 2
-    @ConfigPropertyInt(category = CCategory.FRIENDS_DISPLAY, id = "yOffsetFriendsDisplay", comment = "Y offset for friends display", def = 2)
-    @JvmStatic
-    var yOffsetFriendsDisplay = 2
-    @ConfigPropertyInt(category = CCategory.FRIENDS_DISPLAY, id = "friendsShownAtOnce", comment = "Friends shown at once", def = 10)
-    @JvmStatic
-    var friendsShownAtOnce = 2
-    @ConfigPropertyBoolean(category = CCategory.FRIENDS_DISPLAY, id = "shownFriendsDisplayRight", comment = "Show friends display on the right", def = false)
-    @JvmStatic
-    var shownFriendsDisplayRight = false
-    @ConfigPropertyBoolean(category = CCategory.FRIENDS_DISPLAY, id = "hideOfflineFriends", comment = "Hide offline friends?", def = true)
-    @JvmStatic
-    var hideOfflineFriends = true
-    @ConfigPropertyBoolean(category = CCategory.FRIENDS_DISPLAY, id = "isOnlineFriendsDisplay", comment = "Enable or disable the BoosterDisplay", def = true)
-    @JvmStatic
-    var enabled = false
 
     private var lastUpdateRendering: Long = 0
     private var lastUpdateOnline: Long = 0
     private val localStorageFCO = ArrayList<FancyListObject>()
+
     init {
         this.isButtons = true
         OnlineFriendsLoader()
@@ -196,8 +192,6 @@ object OnlineFriendManager : FancyListManager(5, OnlineFriendManager.xOffsetFrie
             }
         }
     }
-
-
 
 
 }

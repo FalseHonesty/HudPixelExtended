@@ -1,8 +1,7 @@
 package net.unaussprechlich.managedgui.lib.helper
 
 import net.minecraftforge.client.event.ClientChatReceivedEvent
-
-import java.util.ArrayList
+import java.util.*
 
 /* *****************************************************************************
 

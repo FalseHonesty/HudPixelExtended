@@ -1,11 +1,11 @@
 package net.unaussprechlich.managedgui.lib.helper
 
-import net.unaussprechlich.managedgui.lib.ManagedGui
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.client.gui.GuiIngameMenu
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.gui.inventory.GuiInventory
+import net.unaussprechlich.managedgui.lib.ManagedGui
 import org.lwjgl.input.Mouse
 
 /* *****************************************************************************

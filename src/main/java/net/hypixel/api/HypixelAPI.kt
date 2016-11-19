@@ -44,6 +44,7 @@ object HypixelAPI {
      * @param apiKey The API key to set
      */
     var apiKey0: UUID? = null
+
     fun setApiKey(uuid: UUID?) {
         Preconditions.checkNotNull<UUID>(uuid)
         lock.writeLock().lock()
@@ -190,7 +191,7 @@ object HypixelAPI {
      * @return The ResponseHandler that wraps the callback
      */
     private fun <T : AbstractReply> buildResponseHandler(callback: Callback<T>): ResponseHandler<HttpResponse> {
-        return ResponseHandler<HttpResponse>{ obj ->
+        return ResponseHandler<HttpResponse> { obj ->
             val value: T
             try {
                 val content = EntityUtils.toString(obj.getEntity(), "UTF-8")
@@ -199,7 +200,7 @@ object HypixelAPI {
                 checkReply(value)
             } catch (t: Throwable) {
                 callback.callback(t, null)
-                return@ResponseHandler  obj
+                return@ResponseHandler obj
             }
 
             callback.callback(null, value)

@@ -73,7 +73,7 @@ object ManagedGui {
 
     }
 
-        val childRegistry = ChildRegistry()
+    val childRegistry = ChildRegistry()
 
 
 }

@@ -2,7 +2,7 @@ package net.hypixel.api.reply
 
 import net.hypixel.api.request.RequestType
 import net.hypixel.api.util.GameType
-import java.util.UUID
+import java.util.*
 
 
 @SuppressWarnings("unused")

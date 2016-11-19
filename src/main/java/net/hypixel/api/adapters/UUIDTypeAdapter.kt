@@ -1,9 +1,8 @@
 package net.hypixel.api.adapters
 
 import com.google.gson.*
-
 import java.lang.reflect.Type
-import java.util.UUID
+import java.util.*
 
 class UUIDTypeAdapter : JsonDeserializer<UUID>, JsonSerializer<UUID> {
 

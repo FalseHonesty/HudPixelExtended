@@ -109,7 +109,7 @@ class HudPixelConfigGui
          * *
          * @param       used generics for defEntry, will throw a exception if type is not supported
          */
-        fun <T: Any> addElement(category: CCategory, id: String?, defEntry: T, comment: String?) {
+        fun <T : Any> addElement(category: CCategory, id: String?, defEntry: T, comment: String?) {
 
             //adds the category if it doesn't exists
             if (!configCategoryMap.containsKey(category)) {

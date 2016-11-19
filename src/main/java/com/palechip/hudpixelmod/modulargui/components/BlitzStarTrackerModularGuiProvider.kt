@@ -155,9 +155,9 @@ object BlitzStarTrackerModularGuiProvider : HudPixelModularGuiProvider() {
     }
 
 
-        val DISPLAY_MESSAGE = ChatFormatting.DARK_GREEN + "Blitz Star"
-        @ConfigPropertyBoolean(category = CCategory.HUD, id = "blitzStarTracker", comment = "The Blitz Star Tracker", def = true)
-        @JvmStatic
-        var enabled = false
+    val DISPLAY_MESSAGE = ChatFormatting.DARK_GREEN + "Blitz Star"
+    @ConfigPropertyBoolean(category = CCategory.HUD, id = "blitzStarTracker", comment = "The Blitz Star Tracker", def = true)
+    @JvmStatic
+    var enabled = false
 
 }

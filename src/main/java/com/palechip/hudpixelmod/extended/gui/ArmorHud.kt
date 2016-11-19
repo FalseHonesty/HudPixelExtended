@@ -66,32 +66,32 @@ object ArmorHud : IEventHandler {
     @ConfigPropertyInt(CCategory.ARMOR_HUD, "xOffsetArmorHud", "x-offset", 5) @JvmStatic var xOffset_ArmorHud: Int = 5
     @ConfigPropertyInt(CCategory.ARMOR_HUD, "yOffsetArmorHud", "y-offset", 5) @JvmStatic var yOffset_ArmorHud: Int = 5
 
-    private var xStart:Int = 0
-    private var yStart:Int = 0
+    private var xStart: Int = 0
+    private var yStart: Int = 0
 
-    private val size:Int = 18
+    private val size: Int = 18
 
     init {
         HudPixelExtendedEventHandler.registerIEvent(this)
     }
 
-    override fun onRender(){
-        if(Minecraft.getMinecraft().thePlayer == null) return
-        if(disable_ArmorHud || !Minecraft.getMinecraft().inGameHasFocus) return
+    override fun onRender() {
+        if (Minecraft.getMinecraft().thePlayer == null) return
+        if (disable_ArmorHud || !Minecraft.getMinecraft().inGameHasFocus) return
 
-        for(i in 0..3) {
-            val iStack: ItemStack = Minecraft.getMinecraft().thePlayer.equipmentAndArmor.elementAt(5-i) ?: continue
+        for (i in 0..3) {
+            val iStack: ItemStack = Minecraft.getMinecraft().thePlayer.equipmentAndArmor.elementAt(5 - i) ?: continue
 
-            if(renderVertical_ArmorHud)
-                if(GeneralConfigSettings.hudBackground)
-                    RenderUtils.renderItemStackHudBackground(iStack, xStart + (i* size), yStart)
+            if (renderVertical_ArmorHud)
+                if (GeneralConfigSettings.hudBackground)
+                    RenderUtils.renderItemStackHudBackground(iStack, xStart + (i * size), yStart)
                 else
-                    RenderUtils.renderItemStack(iStack, xStart + (i* size), yStart)
+                    RenderUtils.renderItemStack(iStack, xStart + (i * size), yStart)
             else
-                if(GeneralConfigSettings.hudBackground)
-                    RenderUtils.renderItemStackHudBackground(iStack, xStart, yStart + (i* size))
+                if (GeneralConfigSettings.hudBackground)
+                    RenderUtils.renderItemStackHudBackground(iStack, xStart, yStart + (i * size))
                 else
-                    RenderUtils.renderItemStack(iStack, xStart , yStart + (i* size))
+                    RenderUtils.renderItemStack(iStack, xStart, yStart + (i * size))
         }
     }
 
@@ -101,17 +101,17 @@ object ArmorHud : IEventHandler {
         val dWidth = DisplayUtil.getScaledMcWidth()
 
 
-        if(renderBottom_ArmorHud && !renderVertical_ArmorHud)
-            yStart = dHeight - (size*4) + yOffset_ArmorHud
-        else if(renderBottom_ArmorHud )
+        if (renderBottom_ArmorHud && !renderVertical_ArmorHud)
+            yStart = dHeight - (size * 4) + yOffset_ArmorHud
+        else if (renderBottom_ArmorHud)
             yStart = dHeight - size + yOffset_ArmorHud
         else
             yStart = yOffset_ArmorHud
 
 
-        if(renderRight_ArmorHud && renderVertical_ArmorHud)
-            xStart = dWidth - (size*4) + xOffset_ArmorHud
-        else if(renderRight_ArmorHud )
+        if (renderRight_ArmorHud && renderVertical_ArmorHud)
+            xStart = dWidth - (size * 4) + xOffset_ArmorHud
+        else if (renderRight_ArmorHud)
             xStart = dWidth - size + xOffset_ArmorHud
         else
             xStart = xOffset_ArmorHud

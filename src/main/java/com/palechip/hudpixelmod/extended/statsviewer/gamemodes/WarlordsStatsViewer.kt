@@ -124,7 +124,7 @@ class WarlordsStatsViewer
         private val WAR = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "WAR" + McColorHelperJava.D_GRAY + "] "
         private val PAL = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "PAL" + McColorHelperJava.D_GRAY + "] "
         private val MAG = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "MAG" + McColorHelperJava.D_GRAY + "] "
-        private val KDA = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "K" + McColorHelperJava.D_GRAY + "|"+ McColorHelperJava.WHITE + "A" + McColorHelperJava.D_GRAY + "|" + McColorHelperJava.WHITE + "D" + McColorHelperJava.D_GRAY + "] "
+        private val KDA = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "K" + McColorHelperJava.D_GRAY + "|" + McColorHelperJava.WHITE + "A" + McColorHelperJava.D_GRAY + "|" + McColorHelperJava.WHITE + "D" + McColorHelperJava.D_GRAY + "] "
         private val LOS = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "LOS" + McColorHelperJava.D_GRAY + "] "
         private val WIN = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "WIN" + McColorHelperJava.D_GRAY + "] "
         private val KD = McColorHelperJava.D_GRAY + " [" + McColorHelperJava.WHITE + "K/D" + McColorHelperJava.D_GRAY + "] "

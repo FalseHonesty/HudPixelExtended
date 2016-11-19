@@ -193,9 +193,9 @@ class PaintballKillstreakTrackerModularGuiProvider : SimpleHudPixelModularGuiPro
         return ""
     }
 
-        private val COOLDOWN_SIGN = ChatFormatting.RED + "\u2717" // fancy x
-        private val ACTIVE_SIGN = ChatFormatting.GREEN + "\u2713" // isHypixelNetwork mark
-        private val cooldownDependantKillstreaks = HashMap<String, PaintballKillstreakTrackerModularGuiProvider>()
-        private val durationStorage = HashMap<String, Long>()
+    private val COOLDOWN_SIGN = ChatFormatting.RED + "\u2717" // fancy x
+    private val ACTIVE_SIGN = ChatFormatting.GREEN + "\u2713" // isHypixelNetwork mark
+    private val cooldownDependantKillstreaks = HashMap<String, PaintballKillstreakTrackerModularGuiProvider>()
+    private val durationStorage = HashMap<String, Long>()
 
 }

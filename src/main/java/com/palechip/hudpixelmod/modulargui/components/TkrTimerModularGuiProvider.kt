@@ -185,10 +185,10 @@ object TkrTimerModularGuiProvider : SimpleHudPixelModularGuiProvider(), McColorH
         return McColorHelperJava.YELLOW + "You played a total of " + McColorHelperJava.GREEN + lap + McColorHelperJava.YELLOW + " laps."
     }
 
-        val LAP_COMPLETION_MESSAGE_REGEX = "(Lap \\d Completed!).*"
-        @ConfigPropertyBoolean(category = CCategory.HUD, id = "kartRacersAccurateTimeDisplay", comment = "The TKR Time Tracker", def = true)
-        @JvmStatic
-        var enabled = false
-        private var startDelay = 0L
+    val LAP_COMPLETION_MESSAGE_REGEX = "(Lap \\d Completed!).*"
+    @ConfigPropertyBoolean(category = CCategory.HUD, id = "kartRacersAccurateTimeDisplay", comment = "The TKR Time Tracker", def = true)
+    @JvmStatic
+    var enabled = false
+    private var startDelay = 0L
 
 }

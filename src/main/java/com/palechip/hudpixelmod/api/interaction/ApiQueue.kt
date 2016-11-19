@@ -46,7 +46,7 @@ package com.palechip.hudpixelmod.api.interaction
  reserve the right to take down any infringing project.
  **********************************************************************************************************************/
 
-import java.util.LinkedList
+import java.util.*
 
 /**
 

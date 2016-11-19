@@ -131,13 +131,13 @@ object CooldownDisplayManager : IEventHandler {
     }
 
 
-        @ConfigPropertyBoolean(category = CCategory.COOLDOWN_DISPLAY, id = "cooldownDisplay", comment = "The Cooldown Tracker", def = true)
-        var enabled = true
-        @ConfigPropertyInt(category = CCategory.COOLDOWN_DISPLAY, id = "yOffsetCooldownDisplay", comment = "Y offset of cooldown display", def = 25)
-        var yOffsetCooldownDisplay = 25
-        @ConfigPropertyInt(category = CCategory.COOLDOWN_DISPLAY, id = "xOffsetCooldownDisplay", comment = "X offset of cooldown display", def = 0)
-        var xOffsetCooldownDisplay = 0
+    @ConfigPropertyBoolean(category = CCategory.COOLDOWN_DISPLAY, id = "cooldownDisplay", comment = "The Cooldown Tracker", def = true)
+    var enabled = true
+    @ConfigPropertyInt(category = CCategory.COOLDOWN_DISPLAY, id = "yOffsetCooldownDisplay", comment = "Y offset of cooldown display", def = 25)
+    var yOffsetCooldownDisplay = 25
+    @ConfigPropertyInt(category = CCategory.COOLDOWN_DISPLAY, id = "xOffsetCooldownDisplay", comment = "X offset of cooldown display", def = 0)
+    var xOffsetCooldownDisplay = 0
 
-        internal var cdModules = ArrayList<CooldownDisplayModule>()
+    internal var cdModules = ArrayList<CooldownDisplayModule>()
 
 }

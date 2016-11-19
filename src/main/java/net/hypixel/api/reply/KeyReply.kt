@@ -1,8 +1,7 @@
 package net.hypixel.api.reply
 
 import net.hypixel.api.request.RequestType
-
-import java.util.UUID
+import java.util.*
 
 @SuppressWarnings("unused")
 class KeyReply : AbstractReply() {

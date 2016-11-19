@@ -1,6 +1,6 @@
 package net.hypixel.example
 
-import java.util.UUID
+import java.util.*
 
 object ExampleUtil {
 

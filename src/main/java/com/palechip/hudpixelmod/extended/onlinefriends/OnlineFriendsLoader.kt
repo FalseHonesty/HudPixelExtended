@@ -78,7 +78,7 @@ class OnlineFriendsLoader : FriendResponseCallback, IEventHandler, IPlayerLoaded
     }
 
     private fun requestFriends(forceRequest: Boolean?) {
-        if (GeneralConfigSettings.useAPI && OnlineFriendManager.enabled) {
+        if (GeneralConfigSettings.useAPI && enabled) {
             // isHypixelNetwork if enough time has past
             if (currentTimeMillis() > lastRequest + REQUEST_COOLDOWN || forceRequest!!) {
                 // save the time of the request
@@ -95,7 +95,7 @@ class OnlineFriendsLoader : FriendResponseCallback, IEventHandler, IPlayerLoaded
             return
         }
         logInfo("[OnlineFriends][APIloader]: The API answered with a total of " + friendShips.size + " friends! I will request all the Names now.")
-        friendShips.forEach( { this.checkFriend(it) })
+        friendShips.forEach({ this.checkFriend(it) })
         isApiLoaded = true
     }
 

@@ -85,7 +85,7 @@ enum class CCategory private constructor(val nm: String, val chatFormatting: Tex
         const val ARMOR_HUD = "ArmorHud"
 
         fun getCategoryByName(name: String?): CCategory {
-            return when(name) {
+            return when (name) {
                 BOOSTER_DISPLAY -> CCategory.ENUM_BOOSTER_DISPLAY
                 COOLDOWN_DISPLAY -> CCategory.ENUM_COOLDOWN_DISPLAY
                 FRIENDS_DISPLAY -> CCategory.ENUM_FRIENDS_DISPLAY

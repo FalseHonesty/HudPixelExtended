@@ -2,7 +2,6 @@ package com.palechip.hudpixelmod.extended.statsviewer.gamemodes
 
 import com.palechip.hudpixelmod.extended.statsviewer.msc.AbstractStatsViewer
 import com.palechip.hudpixelmod.util.McColorHelperJava
-import net.hypixel.api.reply.PlayerReply
 import net.minecraft.util.text.TextFormatting
 import java.util.*
 

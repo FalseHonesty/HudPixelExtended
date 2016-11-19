@@ -92,7 +92,7 @@ internal constructor(private val playerUUID: UUID, internal var gamemode: String
 
 
     override fun onTick() {
-        if (!OnlineFriendManager.enabled) return
+        if (!enabled) return
         if (isOnline && this.fancyListObjectButtons.isEmpty()) {
             this.addButton(OnlineFriendsMessageButton(username))
             this.addButton(OnlineFriendsPartyButton(username))

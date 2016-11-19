@@ -47,8 +47,7 @@ package com.palechip.hudpixelmod.extended.cooldowndisplay
  **********************************************************************************************************************/
 
 import com.palechip.hudpixelmod.util.GameType
-
-import java.util.ArrayList
+import java.util.*
 
 object CooldownManagerFactory {
 

@@ -2,8 +2,7 @@ package com.palechip.hudpixelmod.extended.statsviewer.msc
 
 import com.palechip.hudpixelmod.extended.statsviewer.gamemodes.*
 import com.palechip.hudpixelmod.util.GameType
-
-import java.util.UUID
+import java.util.*
 
 /* **********************************************************************************************************************
  * HudPixelReloaded - License

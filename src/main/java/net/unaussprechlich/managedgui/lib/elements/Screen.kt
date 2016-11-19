@@ -1,11 +1,11 @@
 package net.unaussprechlich.managedgui.lib.elements
 
-import net.unaussprechlich.managedgui.lib.helper.Child
-import net.unaussprechlich.managedgui.lib.helper.ChildRegistry
-import net.unaussprechlich.managedgui.lib.helper.MouseHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraftforge.client.event.ClientChatReceivedEvent
+import net.unaussprechlich.managedgui.lib.helper.Child
+import net.unaussprechlich.managedgui.lib.helper.ChildRegistry
+import net.unaussprechlich.managedgui.lib.helper.MouseHandler
 
 /* *****************************************************************************
 

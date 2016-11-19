@@ -3,8 +3,7 @@ package com.palechip.hudpixelmod.extended.statsviewer.gamemodes
 import com.palechip.hudpixelmod.extended.statsviewer.msc.AbstractStatsViewer
 import com.palechip.hudpixelmod.util.McColorHelperJava
 import net.minecraft.util.text.TextFormatting
-
-import java.util.UUID
+import java.util.*
 
 /* **********************************************************************************************************************
  * HudPixelReloaded - License

@@ -143,5 +143,4 @@ object BlitzDeathmatchNotifierModularGuiProvider : SimpleHudPixelModularGuiProvi
     }
 
 
-
 }

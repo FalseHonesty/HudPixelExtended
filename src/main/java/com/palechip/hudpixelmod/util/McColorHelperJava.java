@@ -2,9 +2,7 @@ package com.palechip.hudpixelmod.util;
 
 import net.minecraft.util.text.TextFormatting;
 
-import static net.minecraft.util.text.TextFormatting.DARK_GRAY;
-import static net.minecraft.util.text.TextFormatting.DARK_GREEN;
-import static net.minecraft.util.text.TextFormatting.DARK_RED;
+import static net.minecraft.util.text.TextFormatting.*;
 
 public interface McColorHelperJava {
     /**

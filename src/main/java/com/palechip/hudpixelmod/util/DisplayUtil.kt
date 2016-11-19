@@ -67,5 +67,5 @@ object DisplayUtil {
     fun getScaledMcWidth() = Minecraft.getMinecraft().displayWidth / mcScale
 
     @JvmStatic
-    fun  caledMcHeight(): Int = Minecraft.getMinecraft().displayHeight / mcScale
+    fun caledMcHeight(): Int = Minecraft.getMinecraft().displayHeight / mcScale
 }

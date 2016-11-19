@@ -55,8 +55,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.unaussprechlich.managedgui.lib.util.RenderUtils
 
-import java.util.Objects
-
 @SideOnly(Side.CLIENT)
 class CooldownDisplayModule(private val id: Int, private val meta: Int, private val slot: Int) {
     private var coolDown: String? = null

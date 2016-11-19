@@ -201,13 +201,13 @@ object ContributorFancinessHandler : LayerRenderer<EntityPlayer> {
         }
 
     }
+
     @Volatile private var stacks: MutableMap<String, Option<ItemStack, LoadImgur>> = HashMap()
     @Volatile private var startedLoading = false
 
     //https://www.youtube.com/watch?v=41aGCrXM20E
     //@ConfigPropertyBoolean(category = CCategory.HUDPIXEL, id = "displayYourOwn", comment = "Should display your own Contributor Render? (If you don't know what that is, ignore it)", def = true)
     var displayYourOwn = true
-
 
 
     private fun firstStart() {
@@ -232,7 +232,7 @@ object ContributorFancinessHandler : LayerRenderer<EntityPlayer> {
                 } else if (Block.getBlockFromName("minecraft:" + value) != null) {
                     stacks.put(key.toLowerCase(), Option<ItemStack, LoadImgur>(ItemStack(Block.getBlockFromName("minecraft:" + value)!!), null))
                 } else {
-                    stacks.put(key.toLowerCase(), Option<ItemStack, LoadImgur>(null, LoadImgur(value, IImgurCallback{  st -> })))
+                    stacks.put(key.toLowerCase(), Option<ItemStack, LoadImgur>(null, LoadImgur(value, IImgurCallback { st -> })))
                 }
             }
 

@@ -135,11 +135,11 @@ object VZBalanceModularGuiProvider : CoinCounterModularGuiProvider() {
         Negative, Total
     }
 
-        val NEGATIVE_COINS_DISPLAY_TEXT = ChatFormatting.RED + "Coins Spent"
-        val TOTAL_COINS_DISPLAY_TEXT = "Balance"
+    val NEGATIVE_COINS_DISPLAY_TEXT = ChatFormatting.RED + "Coins Spent"
+    val TOTAL_COINS_DISPLAY_TEXT = "Balance"
 
-        @ConfigPropertyBoolean(category = CCategory.HUD, id = "vampireZBalance", comment = "The VZ Time Tracker", def = true)
-        @JvmStatic
-        var enabled = false
+    @ConfigPropertyBoolean(category = CCategory.HUD, id = "vampireZBalance", comment = "The VZ Time Tracker", def = true)
+    @JvmStatic
+    var enabled = false
 
 }

@@ -177,13 +177,12 @@ abstract class FancyListManager(protected var shownObjects: Int, xStart: Float, 
     }
 
 
-
-
     companion object {
         /**
          * process the current loadingbar value
          */
         private var tickCounter = 0
+
         fun processLoadingBar() {
             if (tickCounter >= 2) {
                 if (FancyListObject.loadingBar >= 15)
@@ -195,7 +194,6 @@ abstract class FancyListManager(protected var shownObjects: Int, xStart: Float, 
                 tickCounter++
         }
     }
-
 
 
 }

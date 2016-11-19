@@ -171,7 +171,7 @@ class GameDetector {
             if (LOBBY_MATCHER.asPredicate().test(message)) { //lobby
                 isLobby0 = true
                 gameHasntBegan = true
-                ModularGuiHelper.providers.forEach{it.onGameEnd()}
+                ModularGuiHelper.providers.forEach { it.onGameEnd() }
             }
             event.isCanceled = true
         }

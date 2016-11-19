@@ -126,10 +126,10 @@ object TimerModularGuiProvider : HudPixelModularGuiProvider(), McColorHelperJava
         return McColorHelperJava.YELLOW + "Time passed: " + McColorHelperJava.GREEN + runningTime
     }
 
-        val TIME_DISPLAY_MESSAGE = ChatFormatting.YELLOW + "Time"
-        @ConfigPropertyBoolean(category = CCategory.HUD, id = "timer", comment = "The Game Timer", def = true)
-        @JvmStatic
-        var enabled = false
+    val TIME_DISPLAY_MESSAGE = ChatFormatting.YELLOW + "Time"
+    @ConfigPropertyBoolean(category = CCategory.HUD, id = "timer", comment = "The Game Timer", def = true)
+    @JvmStatic
+    var enabled = false
 
 
 }

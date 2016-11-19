@@ -1,11 +1,11 @@
 package net.unaussprechlich.managedgui.lib.helper
 
+import net.minecraft.util.ResourceLocation
 import net.unaussprechlich.managedgui.lib.elements.Container
 import net.unaussprechlich.managedgui.lib.util.ColorRGBA
 import net.unaussprechlich.managedgui.lib.util.RenderUtils
 import net.unaussprechlich.managedgui.lib.util.storage.StorageFourSide
 import net.unaussprechlich.managedgui.lib.util.storage.StorageTwoSame
-import net.minecraft.util.ResourceLocation
 
 /* *****************************************************************************
 

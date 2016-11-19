@@ -79,12 +79,12 @@ class ApiQueueEntry(private val request: Request?, private val apiCallback: ApiC
     }
 
     private fun executePlayerRequest() {
-        if(request == null) return
+        if (request == null) return
         HypixelAPI.getAsync(request, object : Callback<PlayerReply>(PlayerReply::class.java) {
             override fun callback(failCause: Throwable?, result: PlayerReply?) {
                 if (failCause != null)
                     failCause.printStackTrace()
-                else if(result != null)
+                else if (result != null)
                     (apiCallback as PlayerResponseCallback).onPlayerResponse(result)
                 //HypixelAPI.finish();
             }
@@ -92,12 +92,12 @@ class ApiQueueEntry(private val request: Request?, private val apiCallback: ApiC
     }
 
     private fun executeFriendRequest() {
-        if(request == null) return
+        if (request == null) return
         HypixelAPI.getAsync(request, object : Callback<FriendsReply>(FriendsReply::class.java) {
             override fun callback(failCause: Throwable?, result: FriendsReply?) {
                 if (failCause != null)
                     failCause.printStackTrace()
-                else if(result?.friendShips != null)
+                else if (result?.friendShips != null)
                     (apiCallback as FriendResponseCallback).onFriendResponse(result?.friendShips)
                 //HypixelAPI.finish();
             }
@@ -105,13 +105,13 @@ class ApiQueueEntry(private val request: Request?, private val apiCallback: ApiC
     }
 
     private fun executeBoosterRequest() {
-        if(request == null) return
+        if (request == null) return
         HypixelAPI.getAsync(request, object : Callback<BoostersReply>(BoostersReply::class.java) {
             override fun callback(failCause: Throwable?, result: BoostersReply?) {
                 println("Got a callback!")
                 if (failCause != null)
                     failCause.printStackTrace()
-                else if(result?.boosters != null)
+                else if (result?.boosters != null)
                     (apiCallback as BoosterResponseCallback).onBoosterResponse(result?.boosters)
             }
         })

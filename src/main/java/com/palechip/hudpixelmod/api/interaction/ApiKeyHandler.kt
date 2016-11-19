@@ -62,7 +62,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import java.io.*
 
 @SideOnly(Side.CLIENT)
-object ApiKeyHandler: IEventHandler {
+object ApiKeyHandler : IEventHandler {
 
     init {
         HudPixelExtendedEventHandler.registerIEvent(this)
@@ -216,44 +216,44 @@ object ApiKeyHandler: IEventHandler {
 
     }
 
-        private var API_KEY_STORAGE_PATH: String? = null
-        private var API_KEY_STORAGE_FILE: String? = null
-        private val API_KEY_REQUEST_MESSAGE_1 = "No API key found. This key is necessary for some cool features."
-        private val API_KEY_REQUEST_MESSAGE_2_PART1 = "Simply do "
-        private val API_KEY_REQUEST_MESSAGE_2_PART2 = " for creating a new one."
-        private val API_KEY_REQUEST_MESSAGE_3 = "You can also add your key manually to config\\hypixel_api_key.txt."
-        private val API_KEY_REQUEST_MESSAGE_4 = "If you don't want to use the API features, you can disable \"useAPI\" in the config"
-        private val EMPTY_FILE_CONTENT = "Replace this with the api key or do /api on Hypixel Network. This File gets reset when a key doesn't work."
-        private val API_KEY_PATTERN = "[a-f0-9]{8}[-]([a-f0-9]{4}[-]){3}[a-f0-9]{12}"
+    private var API_KEY_STORAGE_PATH: String? = null
+    private var API_KEY_STORAGE_FILE: String? = null
+    private val API_KEY_REQUEST_MESSAGE_1 = "No API key found. This key is necessary for some cool features."
+    private val API_KEY_REQUEST_MESSAGE_2_PART1 = "Simply do "
+    private val API_KEY_REQUEST_MESSAGE_2_PART2 = " for creating a new one."
+    private val API_KEY_REQUEST_MESSAGE_3 = "You can also add your key manually to config\\hypixel_api_key.txt."
+    private val API_KEY_REQUEST_MESSAGE_4 = "If you don't want to use the API features, you can disable \"useAPI\" in the config"
+    private val EMPTY_FILE_CONTENT = "Replace this with the api key or do /api on Hypixel Network. This File gets reset when a key doesn't work."
+    private val API_KEY_PATTERN = "[a-f0-9]{8}[-]([a-f0-9]{4}[-]){3}[a-f0-9]{12}"
 
-        init {
-            try {
-                // in the config folder
-                API_KEY_STORAGE_PATH = FMLClientHandler.instance().client.mcDataDir.canonicalPath + File.separatorChar + "config" + File.separatorChar
-                // a file called hypixel_api_key.txt
-                API_KEY_STORAGE_FILE = API_KEY_STORAGE_PATH!! + "hypixel_api_key.txt"
-            } catch (e: IOException) {
-                HudPixelMod.logError("Critical error when finding the api key file: ")
-                e.printStackTrace()
-            }
-
+    init {
+        try {
+            // in the config folder
+            API_KEY_STORAGE_PATH = FMLClientHandler.instance().client.mcDataDir.canonicalPath + File.separatorChar + "config" + File.separatorChar
+            // a file called hypixel_api_key.txt
+            API_KEY_STORAGE_FILE = API_KEY_STORAGE_PATH!! + "hypixel_api_key.txt"
+        } catch (e: IOException) {
+            HudPixelMod.logError("Critical error when finding the api key file: ")
+            e.printStackTrace()
         }
 
-        // this gets set to true when the loading fails but is finished
-        var isLoadingFailed = false
-            private set
-        var apiKey: String? = null
-        private var callback: ApiKeyLoadedCallback? = null
+    }
+
+    // this gets set to true when the loading fails but is finished
+    var isLoadingFailed = false
+        private set
+    var apiKey: String? = null
+    private var callback: ApiKeyLoadedCallback? = null
 
 
-        /**
-         * Asks the user to do /api
-         */
-        fun requestApiKey() {
-            ChatMessageComposer(API_KEY_REQUEST_MESSAGE_1).send()
-            ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART1).appendMessage(ChatMessageComposer("/api new", TextFormatting.RED).makeClickable(ClickEvent.Action.RUN_COMMAND, "/api new", ChatMessageComposer("Runs ", TextFormatting.GRAY).appendMessage(ChatMessageComposer("/api new", TextFormatting.RED)))).appendMessage(ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART2)).send()
-            ChatMessageComposer(API_KEY_REQUEST_MESSAGE_3).send()
-            ChatMessageComposer(API_KEY_REQUEST_MESSAGE_4).send()
-        }
+    /**
+     * Asks the user to do /api
+     */
+    fun requestApiKey() {
+        ChatMessageComposer(API_KEY_REQUEST_MESSAGE_1).send()
+        ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART1).appendMessage(ChatMessageComposer("/api new", TextFormatting.RED).makeClickable(ClickEvent.Action.RUN_COMMAND, "/api new", ChatMessageComposer("Runs ", TextFormatting.GRAY).appendMessage(ChatMessageComposer("/api new", TextFormatting.RED)))).appendMessage(ChatMessageComposer(API_KEY_REQUEST_MESSAGE_2_PART2)).send()
+        ChatMessageComposer(API_KEY_REQUEST_MESSAGE_3).send()
+        ChatMessageComposer(API_KEY_REQUEST_MESSAGE_4).send()
+    }
 
 }

@@ -148,9 +148,9 @@ object KillstreakTrackerModularGuiProvider : SimpleHudPixelModularGuiProvider(),
         return McColorHelperJava.YELLOW + "Your greatest Killstreak: " + McColorHelperJava.GREEN + greatestKillstreak + McColorHelperJava.YELLOW + " Kills"
     }
 
-        val CURRENT_KILLSTREAK_DISPLAY_TEXT = ChatFormatting.DARK_PURPLE + "Killstreak: "
-        @ConfigPropertyBoolean(category = CCategory.HUD, id = "killstreakTracker", comment = "The Killstreak Tracker", def = true)
-        @JvmStatic
-        var enabled = false
+    val CURRENT_KILLSTREAK_DISPLAY_TEXT = ChatFormatting.DARK_PURPLE + "Killstreak: "
+    @ConfigPropertyBoolean(category = CCategory.HUD, id = "killstreakTracker", comment = "The Killstreak Tracker", def = true)
+    @JvmStatic
+    var enabled = false
 
 }

@@ -5,8 +5,7 @@ import net.hypixel.api.request.Request
 import net.hypixel.api.request.RequestBuilder
 import net.hypixel.api.request.RequestParam
 import net.hypixel.api.request.RequestType
-
-import java.util.UUID
+import java.util.*
 
 /***********************************************************************************************************************
  * HudPixelReloaded - License
@@ -88,7 +87,7 @@ class ApiQueueEntryBuilder private constructor() {
     }
 
     private fun stringToUUID(s: String): UUID {
-        val uuidS = s.substring(0, 8) + "-" + s.substring(8, 12) + "-"+s.substring(12, 16) + "-" + s.substring(16, 20) + "-"+s.substring(20)
+        val uuidS = s.substring(0, 8) + "-" + s.substring(8, 12) + "-" + s.substring(12, 16) + "-" + s.substring(16, 20) + "-" + s.substring(20)
         return UUID.fromString(uuidS)
     }
 

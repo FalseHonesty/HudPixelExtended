@@ -230,18 +230,22 @@ object HudPixelMod {
             this.logger!!.info("[DEBUG] " + s)
         }
     }
+
     @JvmStatic
     fun logInfo(s: String) {
         this.logger!!.info(s)
     }
+
     @JvmStatic
     fun logWarn(s: String) {
         this.logger!!.warn(s)
     }
+
     @JvmStatic
     fun logError(s: String) {
         this.logger!!.error(s)
     }
+
     const val MODID = "hudpixel"
     const val SHORT_VERSION = "3.0" // only to be used for the annotation which requires such a constant.
     const val DEFAULT_VERSION = "3.2.7dev MC1.9.4"

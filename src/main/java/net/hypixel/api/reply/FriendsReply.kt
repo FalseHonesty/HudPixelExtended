@@ -2,7 +2,7 @@ package net.hypixel.api.reply
 
 import net.hypixel.api.request.RequestType
 import org.joda.time.DateTime
-import java.util.UUID
+import java.util.*
 
 @SuppressWarnings("unused")
 class FriendsReply : AbstractReply() {

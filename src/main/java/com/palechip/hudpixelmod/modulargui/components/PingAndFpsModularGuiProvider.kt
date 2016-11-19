@@ -134,7 +134,7 @@ class PingAndFpsModularGuiProvider(internal var pingOrFps: PingAndFpsModularGuiP
 
                 if (Minecraft.getMinecraft().currentServerData.pingToServer != lastValidPing && Minecraft.getMinecraft().currentServerData.pingToServer > 0) {
                     lastValidPing = Minecraft.getMinecraft().currentServerData.pingToServer
-                    pingString = ""+lastValidPing+"ms"
+                    pingString = "" + lastValidPing + "ms"
                 }
                 return pingString
 

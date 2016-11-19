@@ -81,11 +81,12 @@ class ModularGuiHelper : McColorHelper {
 
     companion object {
         fun register(vararg providers0: ModularGuiRegistry.Element) {
-            for(provider in providers0) {
+            for (provider in providers0) {
                 ModularGuiRegistry.registerElement(provider)
                 providers.add(provider.provider as IHudPixelModularGuiProviderBase)
             }
         }
+
         val TITLE = ModularGuiRegistry.Element("simp0", SimpleTitleModularGuiProvider)
         //ik i have these backwards
         val FPS = ModularGuiRegistry.Element("Ping", PingAndFpsModularGuiProvider(PingAndFpsModularGuiProvider.PingOrFps.FPS))
@@ -110,7 +111,6 @@ class ModularGuiHelper : McColorHelper {
         init {
             register(TITLE, FPS, PING, AVGPROTECTION, COORDS, COIN_COUNTER, TIMER, BLITZ_STAR_TRACKER, DEATHMATCH_TRACKER, KILLSTREAK_TRACKER, TKR_TIMER, VZ_BALANCE, WALLS2_KILLCOUNTER, WALLS3_KILLCOUNTER, PB_KILLSTREAK_TRACKER, WARLORDS_DAMAGE_TRACKER, WARLORDS_HEALING_TRACKER)
         }
-
 
 
         private fun processAfterstats(): ArrayList<String> {

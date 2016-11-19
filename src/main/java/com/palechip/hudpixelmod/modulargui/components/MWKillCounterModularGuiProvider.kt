@@ -138,13 +138,13 @@ object MWKillCounterModularGuiProvider : SimpleHudPixelModularGuiProvider(), McC
         Normal, Final, Assists, Final_Assists, Wither_Coins
     }
 
-        private val KILL_DISPLAY = ChatFormatting.AQUA + "Kills: " + ChatFormatting.RED
-        private val FINAL_KILL_DISPLAY = ChatFormatting.BLUE + "Final Kills: " + ChatFormatting.RED
-        private val ASSISTS_DISPLAY = ChatFormatting.AQUA + "" + ChatFormatting.ITALIC + "Assists: " + ChatFormatting.DARK_GRAY
-        private val FINAL_ASSISTS_DISPLAY = ChatFormatting.BLUE + "" + ChatFormatting.ITALIC + "Final Assists: " + ChatFormatting.DARK_GRAY
-        private val WITHER_COINS_DISPLAY = ChatFormatting.GOLD + "Wither Coins: "
-        @ConfigPropertyBoolean(category = CCategory.HUD, id = "megaWallsKillCounter", comment = "The MW Kill Tracker", def = true)
-        @JvmStatic
-        var enabled = false
+    private val KILL_DISPLAY = ChatFormatting.AQUA + "Kills: " + ChatFormatting.RED
+    private val FINAL_KILL_DISPLAY = ChatFormatting.BLUE + "Final Kills: " + ChatFormatting.RED
+    private val ASSISTS_DISPLAY = ChatFormatting.AQUA + "" + ChatFormatting.ITALIC + "Assists: " + ChatFormatting.DARK_GRAY
+    private val FINAL_ASSISTS_DISPLAY = ChatFormatting.BLUE + "" + ChatFormatting.ITALIC + "Final Assists: " + ChatFormatting.DARK_GRAY
+    private val WITHER_COINS_DISPLAY = ChatFormatting.GOLD + "Wither Coins: "
+    @ConfigPropertyBoolean(category = CCategory.HUD, id = "megaWallsKillCounter", comment = "The MW Kill Tracker", def = true)
+    @JvmStatic
+    var enabled = false
 
 }

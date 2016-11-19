@@ -1,12 +1,12 @@
 package net.unaussprechlich.managedgui.lib.elements
 
+import net.minecraft.util.ResourceLocation
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.unaussprechlich.managedgui.lib.helper.Child
 import net.unaussprechlich.managedgui.lib.helper.MouseHandler
 import net.unaussprechlich.managedgui.lib.helper.RenderHelper
 import net.unaussprechlich.managedgui.lib.util.ColorRGBA
 import net.unaussprechlich.managedgui.lib.util.storage.StorageFourSide
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.client.event.ClientChatReceivedEvent
 
 /* *****************************************************************************
 

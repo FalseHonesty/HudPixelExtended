@@ -119,10 +119,10 @@ object WallsKillCounterModularGuiProvider : SimpleHudPixelModularGuiProvider(), 
         Normal, Assists
     }
 
-        private val KILL_DISPLAY = ChatFormatting.AQUA + "Kills: " + ChatFormatting.RED
-        private val ASSISTS_DISPLAY = ChatFormatting.AQUA + "" + ChatFormatting.ITALIC + "Assists: " + ChatFormatting.DARK_GRAY
-        @ConfigPropertyBoolean(category = CCategory.HUD, id = "wallsKillCounter", comment = "The Walls Kill Tracker", def = true)
-        @JvmStatic
-        var enabled = false
+    private val KILL_DISPLAY = ChatFormatting.AQUA + "Kills: " + ChatFormatting.RED
+    private val ASSISTS_DISPLAY = ChatFormatting.AQUA + "" + ChatFormatting.ITALIC + "Assists: " + ChatFormatting.DARK_GRAY
+    @ConfigPropertyBoolean(category = CCategory.HUD, id = "wallsKillCounter", comment = "The Walls Kill Tracker", def = true)
+    @JvmStatic
+    var enabled = false
 
 }
