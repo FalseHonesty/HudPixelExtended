@@ -2,7 +2,7 @@ package com.palechip.hudpixelmod.extended.update
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import com.palechip.hudpixelmod.HudPixelMod.DEFAULT_VERSION
+import com.palechip.hudpixelmod.HudPixelMod
 import com.palechip.hudpixelmod.extended.util.LoggerHelper.logError
 import com.palechip.hudpixelmod.extended.util.LoggerHelper.logWarn
 import com.palechip.hudpixelmod.extended.util.McColorHelper
@@ -103,7 +103,7 @@ class UpdateNotifier//pauses the thread to
             val data = sBuilder.toString()
             out.println(data)
             val jsonObject = jsonParser(data)
-            if (!getStringFromJson(KEY_VERSION, jsonObject).equals(DEFAULT_VERSION, ignoreCase = true) && !DEFAULT_VERSION.contains("dev"))
+            if (!getStringFromJson(KEY_VERSION, jsonObject).equals(HudPixelMod.DEFAULT_VERSION, ignoreCase = true) && !HudPixelMod.DEFAULT_VERSION.contains("dev"))
                 printUpdateMessage(jsonObject)
         } catch (e: MalformedURLException) {
             logError("[UpdateNotifier]: Something went wrong while loading the URL for the update file")
@@ -162,7 +162,7 @@ class UpdateNotifier//pauses the thread to
         printMessage("")
 
         //GOING TO PRINT THE UPDATE NOE OR DIE TEXT
-        printMessage(GRAY + "You are currently running v" + DEFAULT_VERSION + "! This version will now no longer be supported " +
+        printMessage(GRAY + "You are currently running v" + HudPixelMod.DEFAULT_VERSION + "! This version will now no longer be supported " +
                 "by the HudPixelTeam! Make sure to update to the newest version befor sending any bug-reports or feature requests!" +
                 " HudPixel Reloaded v3 is still in development state, so expect bugs and new features at any time!")
 

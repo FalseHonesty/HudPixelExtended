@@ -48,7 +48,6 @@ package com.palechip.hudpixelmod.extended
 
 import com.palechip.hudpixelmod.GameDetector
 import com.palechip.hudpixelmod.HudPixelMod
-import com.palechip.hudpixelmod.HudPixelMod.MODID
 import com.palechip.hudpixelmod.config.EasyConfigHandler
 import com.palechip.hudpixelmod.extended.fancychat.FancyChat
 import com.palechip.hudpixelmod.extended.onlinefriends.OnlineFriendManager
@@ -81,7 +80,7 @@ object HudPixelExtendedEventHandler {
     fun onConfigChanged(eventArgs: ConfigChangedEvent.OnConfigChangedEvent) {
         try {
             // This event isn't bound to the Hypixel Network
-            if (eventArgs.modID == MODID) {
+            if (eventArgs.modID == HudPixelMod.MODID) {
                 EasyConfigHandler.synchronize()
                 ieventBuffer.forEach(Consumer<IEventHandler> { it.onConfigChanged() })
             }

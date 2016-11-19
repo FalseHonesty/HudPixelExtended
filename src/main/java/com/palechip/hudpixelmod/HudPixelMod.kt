@@ -46,7 +46,6 @@
 package com.palechip.hudpixelmod
 
 import com.google.common.collect.Lists
-import com.palechip.hudpixelmod.HudPixelMod.SHORT_VERSION
 import com.palechip.hudpixelmod.chat.WarlordsDamageChatFilter
 import com.palechip.hudpixelmod.config.EasyConfigHandler
 import com.palechip.hudpixelmod.config.HudPixelConfigGui
@@ -82,22 +81,8 @@ import org.apache.logging.log4j.Logger
 import org.lwjgl.input.Keyboard
 import java.util.*
 
-@Mod(modid = HudPixelMod.MODID, version = SHORT_VERSION, name = HudPixelMod.NAME, clientSideOnly = true, guiFactory = "com.palechip.hudpixelmod.config.HudPixelGuiFactory", acceptedMinecraftVersions = "1.9.4", modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter")
-object HudPixelMod {
-    @JvmStatic
-    lateinit var gameDetector: GameDetector
-    @JvmStatic
-    var logger: Logger? = null
-        private set
-    @JvmStatic
-    private var debugKey: KeyBinding? = null // A key used to bind some debugging functionality.
-    @JvmStatic
-    private var pressToPlay: KeyBinding? = null
-    @JvmStatic
-    private var openConfigGui: KeyBinding? = null
-    @JvmStatic
-    private var warlordsChatFilter: WarlordsDamageChatFilter? = null
-
+@Mod(modid = HudPixelMod.MODID, version = HudPixelMod.SHORT_VERSION, name = HudPixelMod.NAME, clientSideOnly = true, guiFactory = "com.palechip.hudpixelmod.config.HudPixelGuiFactory", acceptedMinecraftVersions = "1.9.4"/*, modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"*/)
+class HudPixelMod {
     @EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
         try {
@@ -114,13 +99,13 @@ object HudPixelMod {
             */
             HudPixelMethodHandles()
             // Initialize the logger
-            this.logger = LogManager.getLogger("HudPixel")
+            Companion.logger = LogManager.getLogger("HudPixel")
 
             // load the configuration file
             EasyConfigHandler.init(event.asmData)
 
         } catch (e: Exception) {
-            this.logWarn("An exception occured in preInit(). Stacktrace below.")
+            Companion.logWarn("An exception occured in preInit(). Stacktrace below.")
             e.printStackTrace()
         }
 
@@ -141,17 +126,17 @@ object HudPixelMod {
         HudPixelExtended
 
         // initialize createModList
-        this.gameDetector = GameDetector()
-        this.warlordsChatFilter = WarlordsDamageChatFilter()
+        Companion.gameDetector = GameDetector()
+        Companion.warlordsChatFilter = WarlordsDamageChatFilter()
 
         // Initialize key bindings
-        this.pressToPlay = KeyBinding("Press this key to play the game set in the Modular GUI", Keyboard.KEY_P, KEY_CATEGORY)
-        this.openConfigGui = KeyBinding("Open Config", Keyboard.KEY_M, KEY_CATEGORY)
-        ClientRegistry.registerKeyBinding(this.pressToPlay)
-        ClientRegistry.registerKeyBinding(this.openConfigGui)
+        Companion.pressToPlay = KeyBinding("Press this key to play the game set in the Modular GUI", Keyboard.KEY_P, KEY_CATEGORY)
+        Companion.openConfigGui = KeyBinding("Open Config", Keyboard.KEY_M, KEY_CATEGORY)
+        ClientRegistry.registerKeyBinding(Companion.pressToPlay)
+        ClientRegistry.registerKeyBinding(Companion.openConfigGui)
         if (IS_DEBUGGING) {
-            this.debugKey = KeyBinding("DEBUG KEY", Keyboard.KEY_J, KEY_CATEGORY)
-            ClientRegistry.registerKeyBinding(this.debugKey)
+            Companion.debugKey = KeyBinding("DEBUG KEY", Keyboard.KEY_J, KEY_CATEGORY)
+            ClientRegistry.registerKeyBinding(Companion.debugKey)
             //yeah
         }
     }
@@ -161,11 +146,11 @@ object HudPixelMod {
         try {
             if (isHypixelNetwork) {
                 if (event.type.toInt() == 0) { // this one reads the normal chat messages
-                    this.warlordsChatFilter!!.onChat(event)
+                    Companion.warlordsChatFilter!!.onChat(event)
                 }
             }
         } catch (e: Exception) {
-            this.logWarn("An exception occured in onChatMessage(). Stacktrace below.")
+            Companion.logWarn("An exception occured in onChatMessage(). Stacktrace below.")
             e.printStackTrace()
         }
 
@@ -193,7 +178,7 @@ object HudPixelMod {
                 }
             }
         } catch (e: Exception) {
-            this.logWarn("An exception occured in onClientTick(). Stacktrace below.")
+            Companion.logWarn("An exception occured in onClientTick(). Stacktrace below.")
             e.printStackTrace()
         }
 
@@ -205,112 +190,130 @@ object HudPixelMod {
         try {
             // Don't do anything unless we are on Hypixel
             if (isHypixelNetwork) {
-                if (this.openConfigGui!!.isPressed) {
+                if (Companion.openConfigGui!!.isPressed) {
                     // open the config screen
                     FMLClientHandler.instance().client.displayGuiScreen(HudPixelConfigGui(null))
-                } else if (this.pressToPlay!!.isPressed) {
+                } else if (Companion.pressToPlay!!.isPressed) {
                     // open the config screen
                     FMLClientHandler.instance().client.thePlayer.sendChatMessage("/play " + PlayGameModularGuiProvider.content)
                 } else if (IS_DEBUGGING) {
-                    if (this.debugKey!!.isPressed) {
+                    if (Companion.debugKey!!.isPressed) {
                         // Add debug code here
                     }
                 }
             }
         } catch (e: Exception) {
-            this.logWarn("An exception occured in onClientTick(). Stacktrace below.")
+            Companion.logWarn("An exception occured in onClientTick(). Stacktrace below.")
             e.printStackTrace()
         }
 
     }
+    companion object {
+        @JvmStatic
+        lateinit var gameDetector: GameDetector
+        @JvmStatic
+        var logger: Logger? = null
+            private set
+        @JvmStatic
+        private var debugKey: KeyBinding? = null // A key used to bind some debugging functionality.
+        @JvmStatic
+        private var pressToPlay: KeyBinding? = null
+        @JvmStatic
+        private var openConfigGui: KeyBinding? = null
+        @JvmStatic
+        private var warlordsChatFilter: WarlordsDamageChatFilter? = null
 
-    @JvmStatic
-    fun logDebug(s: String) {
-        if (IS_DEBUGGING) {
-            this.logger!!.info("[DEBUG] " + s)
-        }
-    }
 
-    @JvmStatic
-    fun logInfo(s: String) {
-        this.logger!!.info(s)
-    }
 
-    @JvmStatic
-    fun logWarn(s: String) {
-        this.logger!!.warn(s)
-    }
-
-    @JvmStatic
-    fun logError(s: String) {
-        this.logger!!.error(s)
-    }
-
-    const val MODID = "hudpixel"
-    const val SHORT_VERSION = "3.0" // only to be used for the annotation which requires such a constant.
-    const val DEFAULT_VERSION = "3.2.7dev MC1.9.4"
-    @JvmField
-    val HYPIXEL_DOMAIN = "hypixel.net"
-    const internal val NAME = "HudPixel Reloaded"
-    // key related vars
-    @JvmStatic
-    private val KEY_CATEGORY = "HudPixel Mod"
-    @JvmStatic
-    private val IP = "http://hudpixel.unaussprechlich.net/HudPixel/files/hudpixelcallback.php" //moved the database ;)
-    @JvmStatic
-    lateinit var CONFIG: Configuration
-    @JvmField
-    var isUpdateNotifierDone = false
-    private val devEnvOverride = false //if this is true, the environment will launch as normal, even in a
-
-    //dev environment
-    @JvmField
-    val IS_DEBUGGING = Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean && !devEnvOverride
-    private val modlist = Lists.newArrayList<String>()
-    private var didTheThings = false
-
-    /**
-     * Checks if the Player is on Hypixel Network.
-     */
-    // get the IP of the current server
-    // only if there is one
-    // Did the player disconnect?
-    // if the server ip ends with hypixel.net, it belongs to the Hypixel Network (mc.hypixel.net, test.hypixel.net, mvp.hypixel.net, creative.hypixel.net)
-    // it can happen that the server data doesn't get null
-    @JvmStatic
-    val isHypixelNetwork: Boolean
-        get() {
+        @JvmStatic
+        fun logDebug(s: String) {
             if (IS_DEBUGGING) {
-                return true
+                this.logger!!.info("[DEBUG] " + s)
             }
-            if (FMLClientHandler.instance().client.currentServerData == null) {
-                logDebug("Disconnected from Hypixel Network")
-                return false
-            }
-            val ip = FMLClientHandler.instance().client.currentServerData.serverIP
-            if (ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase())) {
-                logDebug("Joined Hypixel Network")
-                if (!isUpdateNotifierDone) {
-                    UpdateNotifier(true)
-                    isUpdateNotifierDone = true
+        }
+
+        @JvmStatic
+        fun logInfo(s: String) {
+            this.logger!!.info(s)
+        }
+
+        @JvmStatic
+        fun logWarn(s: String) {
+            this.logger!!.warn(s)
+        }
+
+        @JvmStatic
+        fun logError(s: String) {
+            this.logger!!.error(s)
+        }
+
+        const val MODID = "hudpixel"
+        const val SHORT_VERSION = "3.0" // only to be used for the annotation which requires such a constant.
+        const val DEFAULT_VERSION = "3.2.7dev MC1.9.4"
+        @JvmField
+        val HYPIXEL_DOMAIN = "hypixel.net"
+        const internal val NAME = "HudPixel Reloaded"
+        // key related vars
+        @JvmStatic
+        private val KEY_CATEGORY = "HudPixel Mod"
+        @JvmStatic
+        private val IP = "http://hudpixel.unaussprechlich.net/HudPixel/files/hudpixelcallback.php" //moved the database ;)
+        @JvmStatic
+        lateinit var CONFIG: Configuration
+        @JvmField
+        var isUpdateNotifierDone = false
+        private val devEnvOverride = false //if this is true, the environment will launch as normal, even in a
+
+        //dev environment
+        @JvmField
+        val IS_DEBUGGING = Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean && !devEnvOverride
+        private val modlist = Lists.newArrayList<String>()
+        private var didTheThings = false
+
+        /**
+         * Checks if the Player is on Hypixel Network.
+         */
+        // get the IP of the current server
+        // only if there is one
+        // Did the player disconnect?
+        // if the server ip ends with hypixel.net, it belongs to the Hypixel Network (mc.hypixel.net, test.hypixel.net, mvp.hypixel.net, creative.hypixel.net)
+        // it can happen that the server data doesn't get null
+        @JvmStatic
+        val isHypixelNetwork: Boolean
+            get() {
+                if (IS_DEBUGGING) {
+                    return true
                 }
-                return true
-            } else if (!ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase())) {
+                if (FMLClientHandler.instance().client.currentServerData == null) {
+                    logDebug("Disconnected from Hypixel Network")
+                    return false
+                }
+                val ip = FMLClientHandler.instance().client.currentServerData.serverIP
+                if (ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase())) {
+                    logDebug("Joined Hypixel Network")
+                    if (!isUpdateNotifierDone) {
+                        UpdateNotifier(true)
+                        isUpdateNotifierDone = true
+                    }
+                    return true
+                } else if (!ip.toLowerCase().endsWith(HYPIXEL_DOMAIN.toLowerCase())) {
 
-                logDebug("Disconnected from Hypixel Network")
+                    logDebug("Disconnected from Hypixel Network")
+                    return false
+                }
                 return false
             }
-            return false
+
+        @JvmStatic
+        private fun createModList() {
+            val b = Loader.instance().activeModList
+            for (modContainer in b) {
+                val l = modContainer.name
+                if (!l.contains("Minecraft Coder Pack") && !l.contains("Forge Mod Loader") && !l.contains("Minecraft Forge"))
+                    modlist.add(modContainer.name)
+            }
         }
 
-    @JvmStatic
-    private fun createModList() {
-        val b = Loader.instance().activeModList
-        for (modContainer in b) {
-            val l = modContainer.name
-            if (!l.contains("Minecraft Coder Pack") && !l.contains("Forge Mod Loader") && !l.contains("Minecraft Forge"))
-                modlist.add(modContainer.name)
-        }
     }
 
 }
